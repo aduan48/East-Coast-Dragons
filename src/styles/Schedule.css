@@ -1,0 +1,45 @@
+/* --- 💡 NEW WRAPPER CLASS --- */
+.tourney-header-wrapper {
+  display: flex;
+  align-items: center;       /* Centers the dropdown vertically relative to the red bar */
+  justify-content: flex-start; /* Aligns them to start on the left side */
+  width: 70%;                /* Matches the total alignment width of your table below */
+  margin: 20px auto -5px auto; /* Centers the whole row group horizontally on the page */
+  gap: 5px;   
+  margin-top: 100px;              /* Clean pixel spacing gap between dropdown and red bar */
+}
+
+/* --- UPDATED TOURNEY INFO BAR --- */
+.tourney-info {
+  display: flex;
+  justify-content: center;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: bold;
+  background: var(--primary); 
+  padding: 15px;
+  flex-grow: 1;              /* 💡 Forces the red bar to take up all remaining space on the right */
+  border-radius: 3px;
+  text-align: center;
+}
+
+/* --- DROPDOWN STYLING --- */
+.dropdown {
+  padding: 12px 15px;        /* Sized to match the visual height of the tourney bar perfectly */
+  background-color: #f0f0f0;
+  color: #333;
+  font-size: 1rem;
+  font-weight: bold;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  cursor: pointer;
+  outline: none;
+  min-width: 80px;           /* Prevents text from being clipped inside the field box */
+}
+
+.schedule {
+    overflow-x: scroll;
+    width: 70%;
+    margin: 5vh 15%;
+          
+}

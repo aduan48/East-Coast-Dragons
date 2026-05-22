@@ -1,38 +1,71 @@
+:root {
+  --primary: #c60000;
+  --darker-primary: #ab0000;
+  --hover-primary: #db7575;
+  --secondary: #F9FAFB;
+  --light-grey: #D7D2CB;
+  --grey: #c2c2c2;
+  --darker-grey: #37393c;
+  --highlight: #f8bd0d ;
+  --hover-highlight: #e6be00;
+  --green:  #2E8B57;
+    /* define the amount of space to be given from within the element or from outside the element whenever a scroll event occurs. Does not apply when regularly scrolling because there is no snap position, only href will have a snap position*/
+  scroll-padding-top:14vh;
+}
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+}
+
+/* Add this to your global CSS file to eliminate hidden spacing */
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #000000;
+  color: white; /* 💡 Uses your off-white variable for all global text */
+}
+
+
+@keyframes fadeInPage {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.section-header {
+  /* --- layout and display --- */
+  display: block;              /* 💡 Changed to block so it respects explicit width rules */
+  background-color: var(--primary); 
+  width: 50%;                  /* 💡 Forces the red banner to span exactly 50% of its parent container */
+  box-sizing: border-box;      /* 💡 Keeps padding included inside that 50% calculation so it doesn't break boundaries */
+  
+  /* --- spacing & box size --- */
+  padding: 5px 8px;          
+  margin: 40px 0 20px 10%;     /* Left edge starts at 10% */
+  
+  /* --- typography --- */
+  color: #ffffff;              
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 2.3em;
+  font-weight: 800;            
+  text-align: left;
+  text-transform: uppercase;   
+  letter-spacing: 0.05rem;     
+}
+
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  width: 100%;
+  height: auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  font-family: Arial, Helvetica, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  animation: fadeInPage 0.8s ease-in-out;
 }

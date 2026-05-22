@@ -1,0 +1,40 @@
+table{
+    border-collapse: collapse;
+    width: 100%;
+}
+
+/*Have some schedule settings in bigger screen view*/
+.row {
+    height: 10vh;
+
+}
+
+.row:nth-child(odd) {
+    background-color: var(--secondary);
+    color: black;
+
+}
+
+.row:nth-child(even) {
+    background-color: var(--darker-grey);
+
+}
+
+td{
+    white-space: nowrap;
+    padding-right: 40px;
+}
+
+/*Rounds corner of logo area for table row*/
+td:nth-child(1) {
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    padding-left:10px;
+}
+
+/*Rounds corner of date (TBD) area for table row*/
+td:nth-child(4) {
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+/*for drop down menu*/

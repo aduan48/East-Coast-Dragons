@@ -1,0 +1,42 @@
+.footer {
+    background:var(--secondary);
+    height:10vh;
+    margin-top: 5vh;
+    width:100%;
+    /*Margin collapse so need display:flex*/
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    color: var(--darker-grey);
+}
+
+.socialMedia svg {
+  color: var(--grey);
+  margin: 5px;
+  font-size: 40px;
+  cursor: pointer;
+}
+
+.socialMedia  {
+
+      flex: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  /* Change this from center to flex-end */
+  justify-content: flex-end; 
+  
+  /* Add this to create a nice gap from the edge */
+  padding-right: 30px;
+}/* Use margin instead if you want space before the strip starts */
+
+
+.footer p {
+  color: #828282;
+  flex: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding-left: 0;    /* Changed to 0 so the white strip can start where you want */
+  margin-left: 50px; 
+}
