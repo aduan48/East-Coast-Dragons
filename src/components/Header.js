@@ -22,8 +22,8 @@ function Header() {
       {/* 💡 Content Overlay Box */}
       <div className="header-overlay">
         <div className="center-text-group">
-          <h2 className="welcome-text">-WELCOME-</h2>
-          <img src={logo} alt="Dragons Logo" className="header-logo" />
+          <h2 className="welcome-text" id = 'home-logo'>-WELCOME-</h2>
+          <img src={logo} alt="Dragons Logo" className="header-logo"/>
         </div>
         
         <Link to="/register" className="register-link">

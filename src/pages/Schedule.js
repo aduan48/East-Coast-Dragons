@@ -45,8 +45,10 @@ function Schedule() {
 
   return (
     <div>
+        <header className="section-header" id = 'schedule-topper'>SCHEDULE</header>
 
         <div className="tourney-header-wrapper">
+
 
         <div id='Schedule' className='tourney-info'>
             <span>Over The Edge Tournament</span>

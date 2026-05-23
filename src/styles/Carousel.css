@@ -1,0 +1,30 @@
+.carousel {
+    display: flex;
+    width: 80%;
+    margin:50px auto;
+    overflow-y: auto;
+    padding: 25px 0;
+}
+
+.carousel::-webkit-scrollbar{
+    display: none;
+}
+
+.group{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5em;
+    animation: spin 28s infinite linear;
+    padding-right: 5em;
+}
+
+.card{
+    flex: 0 0 5em;
+    height: 25em;
+}
+
+@keyframes spin{
+    from {translate: 0;}
+    to {translate: -100%;}
+}

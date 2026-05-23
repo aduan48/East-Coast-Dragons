@@ -6,7 +6,11 @@
   width: 70%;                /* Matches the total alignment width of your table below */
   margin: 20px auto -5px auto; /* Centers the whole row group horizontally on the page */
   gap: 5px;   
-  margin-top: 100px;              /* Clean pixel spacing gap between dropdown and red bar */
+  margin-top: 40px;              /* Clean pixel spacing gap between dropdown and red bar */
+}
+
+#schedule-topper{
+  margin-top: 50px;
 }
 
 /* --- UPDATED TOURNEY INFO BAR --- */
@@ -16,7 +20,7 @@
   color: white;
   font-size: 1.1rem;
   font-weight: bold;
-  background: var(--primary); 
+  background: var(--darker-grey);
   padding: 15px;
   flex-grow: 1;              /* 💡 Forces the red bar to take up all remaining space on the right */
   border-radius: 3px;
@@ -41,5 +45,6 @@
     overflow-x: scroll;
     width: 70%;
     margin: 5vh 15%;
+    margin-bottom: 60px;
           
 }

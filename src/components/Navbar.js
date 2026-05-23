@@ -24,7 +24,7 @@ function Navbar() {
       <div className='leftSide' id={openLinks ? "open" : "close"}> 
           <img src={Logo} alt="Logo" />
           <div className='hiddenLinks'>
-           <Link to="/home" onClick={toggleNavbar}> HOME </Link>
+           <Link to="/home" onClick={() => { scrollToSection('home-logo'); toggleNavbar(); }}> HOME </Link>
            <Link to ="/register">  REGISTER  </Link>
           <Link to="/schedule" onClick={toggleNavbar}> SCHEDULE </Link>
           <Link to="/about" onClick={toggleNavbar}> ABOUT </Link>
@@ -32,7 +32,7 @@ function Navbar() {
         </div>
       </div>
       <div className='rightSide'> 
-        <Link to ="/home" >  HOME </Link>
+        <Link to ="/home" onClick={scrollToSection('home-logo')}>  HOME </Link>
         <Link to ="/register">  REGISTER  </Link>
         <Link to ="/schedule">  SCHEDULE </Link>
         <Link to ="/about" >  ABOUT  </Link>

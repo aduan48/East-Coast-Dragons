@@ -10,6 +10,10 @@
   background-color: #000000; 
 }
 
+#home-logo {
+    scroll-margin-top: 150px;
+}
+
 /* --- THE VIDEO LAYERING --- */
 .background-video {
   position: absolute;
