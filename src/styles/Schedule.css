@@ -20,12 +20,27 @@
   color: white;
   font-size: 1.1rem;
   font-weight: bold;
+  background: var(--primary);
+  padding: 15px;
+  flex-grow: 1;              /* 💡 Forces the red bar to take up all remaining space on the right */
+  border-radius: 3px;
+  text-align: center;
+  margin: auto auto 5vh auto;
+}
+
+.curr-tourney-info {
+  display: flex;
+  justify-content: center;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: bold;
   background: var(--darker-grey);
   padding: 15px;
   flex-grow: 1;              /* 💡 Forces the red bar to take up all remaining space on the right */
   border-radius: 3px;
   text-align: center;
 }
+
 
 /* --- DROPDOWN STYLING --- */
 .dropdown {

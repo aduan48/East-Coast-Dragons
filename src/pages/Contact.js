@@ -50,7 +50,7 @@ function Contact() {
 
   return (
     <div>
-        <header className="section-header" id = 'Contact Us'>Contact Us</header>
+        <header className="section-header" id = 'Contact-Us'>Contact Us</header>
 
         <div className = 'contact-us' >
         <h1 className = 'contact-header'>BECOME A DRAGON</h1>

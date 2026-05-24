@@ -7,6 +7,8 @@ function Schedule() {
     const [schedule, setSchedule] = useState([]);
     const [scheduleGroup, setScheduleGroup] = useState("U18")
 
+    const [lineup, setLineup] = useState([]);
+
 
     useEffect(() => {
         async function fetchData() {
@@ -25,6 +27,30 @@ function Schedule() {
         }
         fetchData();
     }, [scheduleGroup]);
+
+    useEffect(() => {
+        async function fetchLineupData() {
+            try {
+                const response = await fetch(`/.netlify/functions/getlineup`); // No query param needed
+                if(response.ok) {
+                    setLineup(await response.json()); // Save to your second state
+                }
+            } catch(error) { console.error("Lineup fetch failed", error); }
+        }
+        fetchLineupData();
+    }, []);
+
+
+    function info(id, date, tournamentName, state){
+        return(
+            <tr className = 'row' key={id}>
+                <td className='schedule-data'>{date}</td>
+                <td className='schedule-data'>{tournamentName}</td>
+                <td className='schedule-data'>{state}</td>
+
+            </tr>
+        )
+    }
 
     function info(id, date, time, rink, opponent){
         return(
@@ -47,10 +73,11 @@ function Schedule() {
     <div>
         <header className="section-header" id = 'schedule-topper'>SCHEDULE</header>
 
+
         <div className="tourney-header-wrapper">
 
 
-        <div id='Schedule' className='tourney-info'>
+        <div id='Schedule' className='curr-tourney-info'>
             <span>Over The Edge Tournament</span>
         </div>
         
@@ -65,7 +92,7 @@ function Schedule() {
         <div className = 'schedule'>
             <table>
                 <tbody>
-                    {info("Date", "Time", "Location", "Opponent")}
+                    {info("header","Date", "Time", "Location", "Opponent")}
                     {schedule ? Object.entries(schedule).map(([id, game]) => {
                             return info(id, game['date'],game['time'],game['rink'],game['opponent']);
                     }):null}
@@ -73,7 +100,20 @@ function Schedule() {
             </table>
         </div>
       
+        <div className = 'schedule'>
+            <div className='tourney-info'>
+                <span>2026 Summer Tournament Lineup</span>
+            </div>
 
+            <table>
+                <tbody>
+                    {info("header","Date", "Tournament", "State")}
+                    {lineup ? Object.entries(lineup).map(([id, tournament]) => {
+                            return info(id, tournament['date'],tournament['tournamentName'],tournament['state']);
+                    }):null}
+                </tbody>
+            </table>
+        </div>
 
 
     </div>

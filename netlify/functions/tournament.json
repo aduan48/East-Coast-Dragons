@@ -1,0 +1,37 @@
+[
+    {
+        "date": "5/29-31",
+        "tournamentName": "Over The Edge",
+        "state": "MA"
+    },
+        {
+        "date": "6/12-14",
+        "tournamentName": "Prep Cup",
+        "state": "NH"
+    },
+    {
+        "date": "6/19-21",
+        "tournamentName": "Girls Harrow Invite",
+        "state": "MA"
+    },
+    {
+        "date": "6/26-28",
+        "tournamentName": "Boys Harrow Invite",
+        "state": "NH"
+    },
+    {
+        "date": "7/17-19",
+        "tournamentName": "Summer Meltdown",
+        "state": "MA"
+    },
+        {
+        "date": "8/7-9",
+        "tournamentName": "Girls Militia Cup",
+        "state": "MA"
+    },
+    {
+        "date": "8/14-16",
+        "tournamentName": "Boys Militia Cup",
+        "state": "MA"
+    }
+]

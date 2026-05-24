@@ -1,7 +1,6 @@
 .footer {
     background:var(--secondary);
     height:10vh;
-    margin-top: 5vh;
     width:100%;
     /*Margin collapse so need display:flex*/
     display: flex;

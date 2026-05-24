@@ -11,6 +11,7 @@
     align-content: center;
     background-color: white;
     color: black;
+    margin-bottom: 5vh;
 
     
 }
@@ -73,4 +74,8 @@ button[type="submit"]:hover {
 ::placeholder {
     color: #9BA3AF;
 
+}
+
+#Contact-Us{
+    margin-bottom: 40px;
 }
