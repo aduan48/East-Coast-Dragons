@@ -2,6 +2,7 @@ import React from 'react'
 import logo from '../assets/rwLogo.png'
 import { Link } from 'react-router-dom';
 import '../styles/Header.css'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 function Header() {
   return (
@@ -29,6 +30,8 @@ function Header() {
         <Link to="/register" className="register-link">
           <button>Register</button>
         </Link>
+
+        <KeyboardArrowDownIcon className='down-arrow' sx={{ fontSize: '4rem !important' }}/>
       </div>
     </div>
   )

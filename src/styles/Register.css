@@ -84,3 +84,17 @@ input[type = "radio"]{
   width: 60%;
   padding: 5px 10px;
 }
+
+/* 💡 Fixes the squished vertical checkout text layout */
+#paypal-container-25LZLEJYD69VS {
+    width: 100% !important;
+    max-width: 500px !important; /* Matches standard PayPal button layouts */
+    min-width: 250px !important; /* Prevents the container from collapsing horizontally */
+    margin: 0 auto !important;
+    display: block !important;
+}
+
+/* Ensure the wrapper handles the iframe scaling smoothly */
+#paypal-container-25LZLEJYD69VS * {
+    white-space: nowrap !important; /* Blocks text from breaking letter-by-letter */
+}

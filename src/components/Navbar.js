@@ -27,7 +27,7 @@ function Navbar() {
            <Link to="/home" onClick={() => { scrollToSection('home-logo'); toggleNavbar(); }}> HOME </Link>
            <Link to ="/register">  REGISTER  </Link>
           <Link to="/schedule" onClick={toggleNavbar}> SCHEDULE </Link>
-          <Link to="/about" onClick={toggleNavbar}> ABOUT </Link>
+          <Link to="/about" onClick={() => { scrollToSection('about-section'); toggleNavbar(); }}> ABOUT </Link>
           <Link to="/contact" onClick={toggleNavbar}> CONTACT </Link>
         </div>
       </div>
@@ -35,7 +35,7 @@ function Navbar() {
         <Link to ="/home" onClick={scrollToSection('home-logo')}>  HOME </Link>
         <Link to ="/register">  REGISTER  </Link>
         <Link to ="/schedule">  SCHEDULE </Link>
-        <Link to ="/about" >  ABOUT  </Link>
+        <Link to ="/about" onClick={() => { scrollToSection('about-section'); toggleNavbar(); }}>  ABOUT  </Link>
         <Link to ="/contact">  CONTACT  </Link>
         <button onClick ={toggleNavbar}>
          <ReorderIcon />

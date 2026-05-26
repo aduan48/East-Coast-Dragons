@@ -1,0 +1,75 @@
+.our-story-item {
+  display: flex;
+  flex-direction: column;             
+}
+
+.text-side {
+  flex: 70%; 
+  margin-top: -20px;
+}
+
+/* Image takes up 40% of the container */
+.image-side {
+  flex: 30%; 
+}
+
+.about-us-content {
+  display: flex;
+  flex-direction: row;       /* Forces image and text side-by-side */
+  justify-content: center;
+  align-items: flex-start;   /* Aligns them perfectly at the top */
+  max-width: 1200px;         /* Limits total width like the screenshot */
+  margin: 40px 10%;         /* Centers the container horizontally */
+  padding: 0 20px;
+  gap: 20px;   
+            /* Clean space between the image and text blocks */
+}
+
+.our-story-item img {
+  width: auto;               
+  max-width: 100%;          
+  height: auto;             
+  max-height: 80vh;         
+  object-fit: contain;      
+  
+  /* 💡 THESE TWO LINES FORCE THE ALIGNMENT TO THE LEFT EDGE */
+  object-position: left top; 
+  margin: 0;                 
+}
+
+.our-story-item p {
+  font-family: Arial, sans-serif;
+  font-size: 1.05rem;        /* Sizing matches screenshot readability */
+  color: #b3b3b3;            /* A muted, elegant grayish-white for body copy */
+  line-height: 1.6;          /* Clean line breathing room */
+  margin-bottom: 0px;       /* Margin between paragraph blocks */
+}
+
+/* --- TYPOGRAPHY (TEXT STYLING) --- */
+.our-story-item h1 {
+  font-family: Arial, sans-serif;
+  font-size: 2rem;
+  font-weight: 800;          /* Heavy bold title matching screenshot */
+  color: #ffffff;            /* Crisp white headers */
+  text-transform: uppercase; /* CAPITALIZED TITLE */
+  margin-bottom: 0px;
+  letter-spacing: 0.5px;
+  text-align: center;
+  margin-right: 5%;
+}
+
+.mission{
+    margin:auto 15%;
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
+
+.mission p {
+  font-family: Arial, sans-serif;
+  font-size: 1.05rem;        /* Sizing matches screenshot readability */
+  color: white;            /* A muted, elegant grayish-white for body copy */
+  line-height: 1.6;          /* Clean line breathing room */
+  margin-bottom: 0px;       /* Margin between paragraph blocks */
+  font-weight: bold;
+  text-align: center;
+}

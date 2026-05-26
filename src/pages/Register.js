@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import '../styles/Register.css'
 
+
 function useStorageState(key, initialState) {
     const [value, setValue] = useState(() => {
         const saved = localStorage.getItem(key);
@@ -26,6 +27,43 @@ function Register() {
 // 1. Persist what page/step the user is currently on 
     const [step, setStep] = useStorageState('register_step', 1);
 
+    const [isPaid, setIsPaid] = useState(false);
+
+
+    useEffect(() => {
+        if (step === 4) {
+            const existingScript = document.getElementById('paypal-sdk-script');
+            
+            const renderPayPal = () => {
+                if (window.paypal && window.paypal.HostedButtons) {
+                    const container = document.getElementById("paypal-container-25LZLEJYD69VS");
+                    if (container) container.innerHTML = ""; // Clear old instance if any
+                    
+                    window.paypal.HostedButtons({
+                        hostedButtonId: "25LZLEJYD69VS",
+                        // 💡 This callback executes right after the user approves the payment inside the PayPal popup window
+                        onApprove: function(data, actions) {
+                            alert("Payment Successful! Your transaction is verified. You can now submit your registration form.");
+                            setIsPaid(true); // Unlocks the submit button automatically
+                        }
+                    }).render("#paypal-container-25LZLEJYD69VS");
+                }
+            };
+
+            if (!existingScript) {
+                const script = document.createElement('script');
+                script.id = 'paypal-sdk-script';
+                script.src = "https://www.paypal.com/sdk/js?client-id=BAAJuxDxo1LJU4iCMX8Sy_CUWGCE5QRIn3a96B_gp1CuCXZOrARC18_cyJthGOXhdbDAlBl5kjvIIE9J3Y&components=hosted-buttons&enable-funding=venmo&currency=USD";
+                script.crossOrigin = "anonymous";
+                script.async = true;
+                script.onload = renderPayPal;
+                document.body.appendChild(script);
+            } else {
+                renderPayPal();
+            }
+        }
+    }, [step]);
+
     // 2. Persist all form inputs as an object
     const [values, setValues] = useStorageState('register_values', {
         firstName: '',
@@ -35,7 +73,7 @@ function Register() {
         phoneNumber: '',
         ageGroup: '',
         position: '',
-        tournamentSelect: 'prep-cup',
+        tournamentSelect: 'Prep Cup (6/12-14)',
         waiver: '',
         parentSig: '',
         playerSig: '',
@@ -43,6 +81,7 @@ function Register() {
 
     const nextStep = (e) => {
         e.preventDefault(); // Prevent accidental form submission
+
 
          // --- PAGE 1 VALIDATION ---
         if (step === 1) {
@@ -100,9 +139,14 @@ function Register() {
        
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwgfV-nG9q51dFmjeVFNeK0eBcZM7AqgVWbJGltxTPwxQb-CdnGMgnEa49PnZeEC3LWRA/exec"
 
+        if (!isPaid) {
+            alert("Please complete the PayPal payment before submitting your entry.");
+            return;
+        }
+
+        
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzv0X2bJrwirED3DZAemM7tSf3sVhD2p02jfVadDjkBLDIqOzf-wA7OJowxGbneOdfkpw/exec"
         try {
             // Send the values state as a stringified JSON body via POST request
             const response = await fetch(SCRIPT_URL, {
@@ -114,9 +158,11 @@ function Register() {
                 body: JSON.stringify(values),
             });
 
+            console.log("Fetch executed. Response status (opaque):", response.status);
+
             // Note: because of 'no-cors', response.status will return 0. 
             // If it doesn't catch an error, it hit the endpoint successfully.
-            alert("Registration Submitted Successfully!");
+            alert("Registration Submitted Successfully! We will email you once we have processed your submission.");
             
             // Optional: Clear out local storage and reset form if desired
             localStorage.removeItem('register_step');
@@ -209,13 +255,13 @@ function Register() {
                                 <label htmlFor='tournamentSelect'>Tournament to Register</label>
                                 <div className = 'select'>
                                 <select className='tournamentSelect' name="tournamentSelect" id='tournamentSelect' value={values.tournamentSelect} onChange={handleChanges}>
-                                    <option value='prep-cup'>Prep Cup (6/12-14)</option>
-                                    <option value='girls-harrow'>Girls Harrow Invite (6/19-21)</option>
-                                    <option value='boys-harrow'>Boys Harrow Invite (6/26-28)</option>
-                                    <option value='meltdown'>Summer Meltdown (7/17-19)</option>
-                                    <option value='CCM-SI'>CCM Summer Invite (8/1-3)</option>
-                                    <option value='girls-milita'>Girls Militia Cup (8/7-9)</option>
-                                    <option value='boys-milita'>Boys Militia Cup (8/14-16)</option>
+                                    <option value='Prep Cup (6/12-14)'>Prep Cup (6/12-14)</option>
+                                    <option value='Girls Harrow Invite (6/19-21)'>Girls Harrow Invite (6/19-21)</option>
+                                    <option value='Boys Harrow Invite (6/26-28)'>Boys Harrow Invite (6/26-28)</option>
+                                    <option value='Summer Meltdown (7/17-19)'>Summer Meltdown (7/17-19)</option>
+                                    <option value='CCM Summer Invite (8/1-3)'>CCM Summer Invite (8/1-3)</option>
+                                    <option value='Girls Militia Cup (8/7-9)'>Girls Militia Cup (8/7-9)</option>
+                                    <option value='Boys Militia Cup (8/14-16)'>Boys Militia Cup (8/14-16)</option>
                                 </select>
                                 </div>
                             </div>
@@ -264,12 +310,37 @@ function Register() {
                     )}
 
                     {step === 4 && (
-                        <div>
-                            <div className="form-page">
-                             <div className="button-row">
-                                <button className="btn-back" onClick={prevStep}>Back</button>
-                                <button type='submit' className="btn-submit">Submit Registration</button>
+                        <div className="form-page">
+                            <h2>Final Step: Secure Checkout</h2>
+                            <p style={{ textAlign: 'center', marginBottom: '20px' }}>
+                                Please complete your registration payment. Your application cannot be processed until payment is validated.
+                            </p>
+
+                            {/* --- PayPal Dynamic Container --- */}
+                        <div className="paypal-wrapper" style={{ width: '100%', textAlign: 'center', margin: '30px auto' }}>
+                            <div id="paypal-container-25LZLEJYD69VS"></div>
+                        </div>
+
+                            {/* --- Payment Status Indicator Badge --- */}
+                            <div style={{ textAlign: 'center', margin: '15px 0', fontWeight: 'bold' }}>
+                                {isPaid ? (
+                                    <span style={{ color: '#27ae60' }}>✓ Payment Confirmed! Ready to Submit.</span>
+                                ) : (
+                                    <span style={{ color: '#e74c3c' }}>⚠ Awaiting Secure Payment Completion...</span>
+                                )}
                             </div>
+
+                            <div className="button-row">
+                                <button className="btn-back" onClick={prevStep}>Back</button>
+                                
+                                {/* 💡 Visual lock: Changes class and disables button dynamically based on payment status */}
+                                <button 
+                                    type='submit' 
+                                    className={`btn-submit ${!isPaid ? 'btn-disabled' : ''}`}
+                                    disabled={!isPaid}
+                                >
+                                    Submit Registration
+                                </button>
                             </div>
                         </div>
                     )}

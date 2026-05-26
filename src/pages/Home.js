@@ -12,6 +12,7 @@ function Home() {
 
   useEffect(() => {
     // If the URL is /about OR if there is a hash like #about-section
+    setTimeout(() => {
     if (pathname === '/home') {
       const element = document.getElementById('home-logo');
       if (element) {
@@ -19,18 +20,17 @@ function Home() {
       }
     } else if(pathname === '/contact'){
 // Delay by 100-200ms to let the DOM layout settle
-      setTimeout(() => {
         const element = document.getElementById('Contact-Us');
         if (element) {
           element.scrollIntoView({ behavior: 'smooth' });
         }
-      }, 150);
     } else if(pathname === '/schedule'){
       const element = document.getElementById('schedule-topper');
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
       }
     }
+    }, 300);
   }, [pathname, hash]); // Run this whenever the URL changes
 
 

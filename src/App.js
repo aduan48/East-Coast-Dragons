@@ -6,6 +6,8 @@ import Footer from './components/Footer'
 import Register from './pages/Register'
 import About from './pages/About'
 
+
+
 function App() {
   return (
     <div className="App">

@@ -15,8 +15,11 @@
     align-items: center;
     justify-content: center;
     gap: 5em;
-    animation: spin 10s infinite linear;
     padding-right: 5em;
+}
+
+.group.animate {
+    animation: spin 10s infinite linear;
 }
 
 .card{
