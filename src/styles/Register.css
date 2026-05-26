@@ -98,3 +98,21 @@ input[type = "radio"]{
 #paypal-container-25LZLEJYD69VS * {
     white-space: nowrap !important; /* Blocks text from breaking letter-by-letter */
 }
+
+.checkout{
+    display: flex;
+  flex-direction: row;       /* Forces image and text side-by-side */
+  justify-content: center;
+  align-items: flex-start;   /* Aligns them perfectly at the top */
+  max-width: 1200px;         /* Limits total width like the screenshot */
+  margin: 20px 10%;         /* Centers the container horizontally */
+  padding: 0 20px;
+  gap: 40px;  
+}
+
+.warning{
+    color: var(--primary);
+    margin-left: 150px;
+    margin-right: 150px;
+    margin-bottom: -50px;
+}

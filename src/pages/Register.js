@@ -312,23 +312,35 @@ function Register() {
                     {step === 4 && (
                         <div className="form-page">
                             <h2>Final Step: Secure Checkout</h2>
-                            <p style={{ textAlign: 'center', marginBottom: '20px' }}>
-                                Please complete your registration payment. Your application cannot be processed until payment is validated.
-                            </p>
-
-                            {/* --- PayPal Dynamic Container --- */}
-                        <div className="paypal-wrapper" style={{ width: '100%', textAlign: 'center', margin: '30px auto' }}>
-                            <div id="paypal-container-25LZLEJYD69VS"></div>
-                        </div>
-
-                            {/* --- Payment Status Indicator Badge --- */}
-                            <div style={{ textAlign: 'center', margin: '15px 0', fontWeight: 'bold' }}>
-                                {isPaid ? (
-                                    <span style={{ color: '#27ae60' }}>✓ Payment Confirmed! Ready to Submit.</span>
-                                ) : (
-                                    <span style={{ color: '#e74c3c' }}>⚠ Awaiting Secure Payment Completion...</span>
-                                )}
+                                <p className= 'warning'style={{ textAlign: 'center', marginBottom: '20px'}}>
+                                    Please complete your registration payment. Your application cannot be processed until payment is validated.
+                                </p>
+                        <div className='checkout'>
+                            <div>
+                                <h3>Summary</h3>
+                                <p><strong>Name:</strong> {values.firstName} {values.lastName}</p>
+                                <p><strong>Email:</strong> {values.playerEmail}, {values.parentEmail}</p>
+                                <p><strong>Tournament:</strong> {values.tournamentSelect}</p>
+                                <p><strong>Age:</strong> {values.ageGroup}</p>
                             </div>
+
+                            <div>
+
+                                    {/* --- PayPal Dynamic Container --- */}
+                                <div className="paypal-wrapper" style={{ width: '100%', textAlign: 'center', margin: '30px auto' }}>
+                                    <div id="paypal-container-25LZLEJYD69VS"></div>
+                                </div>
+
+                                {/* --- Payment Status Indicator Badge --- */}
+                                <div style={{ textAlign: 'center', margin: '15px 0', fontWeight: 'bold' }}>
+                                    {isPaid ? (
+                                        <span style={{ color: '#27ae60' }}>✓ Payment Confirmed! Ready to Submit.</span>
+                                    ) : (
+                                        <span style={{ color: '#e74c3c' }}>⚠ Awaiting Secure Payment Completion...</span>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
 
                             <div className="button-row">
                                 <button className="btn-back" onClick={prevStep}>Back</button>
