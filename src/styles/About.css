@@ -73,3 +73,17 @@
   font-weight: bold;
   text-align: center;
 }
+
+/* 💡 The starting state of the element (Invisible & shifted down 30px) */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  will-change: opacity, transform;
+}
+
+/* 💡 The animated state when it scrolls into view */
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}

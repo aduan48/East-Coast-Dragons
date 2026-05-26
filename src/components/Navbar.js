@@ -25,7 +25,7 @@ function Navbar() {
           <img src={Logo} alt="Logo" />
           <div className='hiddenLinks'>
            <Link to="/home" onClick={() => { scrollToSection('home-logo'); toggleNavbar(); }}> HOME </Link>
-           <Link to ="/register">  REGISTER  </Link>
+           <Link to ="/register" onClick={() => { scrollToSection('register-header'); toggleNavbar(); }}>  REGISTER  </Link>
           <Link to="/schedule" onClick={toggleNavbar}> SCHEDULE </Link>
           <Link to="/about" onClick={() => { scrollToSection('about-section'); toggleNavbar(); }}> ABOUT </Link>
           <Link to="/contact" onClick={toggleNavbar}> CONTACT </Link>
@@ -33,9 +33,9 @@ function Navbar() {
       </div>
       <div className='rightSide'> 
         <Link to ="/home" onClick={scrollToSection('home-logo')}>  HOME </Link>
-        <Link to ="/register">  REGISTER  </Link>
+        <Link to ="/register" onClick={scrollToSection('register-header')}>  REGISTER  </Link>
         <Link to ="/schedule">  SCHEDULE </Link>
-        <Link to ="/about" onClick={() => { scrollToSection('about-section'); toggleNavbar(); }}>  ABOUT  </Link>
+        <Link to ="/about" onClick={scrollToSection('about-section')}>  ABOUT  </Link>
         <Link to ="/contact">  CONTACT  </Link>
         <button onClick ={toggleNavbar}>
          <ReorderIcon />
