@@ -1,14 +1,38 @@
 [
     {
-        "date": "Friday, May 22nd",
-        "time": "12:00pm",
-        "rink": "Foxborough Sports Center",
-        "opponent": "Militia"
+        "date": "Friday, May 29th",
+        "time": "8:50pm",
+        "rink": "Foxboro Sports Center",
+        "opponent": "Valor Hockey Group Black"
     },
     {
-        "date": "Friday, May 22nd",
-        "time": "12:00pm",
-        "rink": "Foxborough Sports Center",
-        "opponent": "Tewksbury"
+        "date": "Saturday, May 30th",
+        "time": "10:40am",
+        "rink": "Foxboro Sports Center",
+        "opponent": "Coast Elite"
+    },
+    {
+        "date": "Saturday, May 30th",
+        "time": "3:20pm",
+        "rink": "Foxboro Sports Center",
+        "opponent": "Kings"
+    },
+    {
+        "date": "Sunday, May 31st",
+        "time": "9:15am",
+        "rink": "Foxboro Sports Center",
+        "opponent": "1st vs 4th (Playoffs)"
+    },
+    {
+        "date": "Sunday, May 31st",
+        "time": "9:30am",
+        "rink": "Foxboro Sports Center",
+        "opponent": "2nd vs 3rd (Playoffs)"
+    },
+    {
+        "date": "Sunday, May 31st",
+        "time": "11:30am",
+        "rink": "Foxboro Sports Center",
+        "opponent": "Finals (Playoffs)"
     }
 ]
