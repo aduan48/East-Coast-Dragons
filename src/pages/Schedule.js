@@ -41,7 +41,7 @@ function Schedule() {
     }, []);
 
 
-    function info(id, date, tournamentName, state){
+    function tourneyInfo(id, date, tournamentName, state){
         return(
             <tr className = 'row' key={id}>
                 <td className='schedule-data'>{date}</td>
@@ -107,9 +107,9 @@ function Schedule() {
 
             <table>
                 <tbody>
-                    {info("header","Date", "Tournament", "State")}
+                    {tourneyInfo("header","Date", "Tournament", "State")}
                     {lineup ? Object.entries(lineup).map(([id, tournament]) => {
-                            return info(id, tournament['date'],tournament['tournamentName'],tournament['state']);
+                            return tourneyInfo(id, tournament['date'],tournament['tournamentName'],tournament['state']);
                     }):null}
                 </tbody>
             </table>
