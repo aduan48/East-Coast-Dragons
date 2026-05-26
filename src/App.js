@@ -5,6 +5,7 @@ import Home from './pages/Home'
 import Footer from './components/Footer'
 import Register from './pages/Register'
 import About from './pages/About'
+import ScrollToTop from './components/ScrollToTop';
 
 
 
@@ -12,6 +13,7 @@ function App() {
   return (
     <div className="App">
       <Router>
+        <ScrollToTop />
         <Navbar />
         <Routes>
           <Route path = "/" element={<Home />} />
