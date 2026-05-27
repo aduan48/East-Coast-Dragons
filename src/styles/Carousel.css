@@ -1,16 +1,17 @@
+/* --- Base Styles (Desktop) --- */
 .carousel {
     display: flex;
     width: 80%;
-    margin:50px auto;
-    overflow-y: auto;
+    margin: 50px auto;
+    overflow: hidden; /* Changed from overflow-y: auto to prevent unexpected vertical scrolling */
     padding: 25px 0;
 }
 
-.carousel::-webkit-scrollbar{
+.carousel::-webkit-scrollbar {
     display: none;
 }
 
-.group{
+.group {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -19,15 +20,40 @@
 }
 
 .group.animate {
-    animation: spin 10s infinite linear;
+    animation: spin 25s infinite linear;
 }
 
-.card{
-    flex: 0 0 5em;
+.card {
+    flex: 0 0 25em; /* Expanded standard base width for desktop visibility */
     height: 25em;
+    object-fit: cover; /* Keeps images from stretching or squeezing oddly */
 }
 
-@keyframes spin{
-    from {translate: 0;}
-    to {translate: -100%;}
+@keyframes spin {
+    from { transform: translateX(0); } /* Uses standardized transform positioning */
+    to { transform: translateX(-100%); }
+}
+
+
+/* --- Mobile Responsive Loop Adjustments --- */
+@media screen and (max-width: 768px) {
+    .carousel {
+        width: 100%;       /* 💡 Uses the full screen width on phones edge-to-edge */
+        margin: 20px 0;    /* Tightens up external vertical page spacing */
+        padding: 10px 0;
+    }
+
+    .group {
+        gap: 1.5em;        /* 💡 Shrinks the gap down so items don't have deep black empty spaces */
+        padding-right: 1.5em; /* Must match the gap exactly to keep the infinite loop seamless */
+    }
+
+    .card {
+        flex: 0 0 65vw;    /* 💡 Forces each photo to take up roughly 65% of the viewport width */
+        height: 40vh;      /* 💡 Constraints height dynamically based on the phone screen aspect ratio */
+    }
+    
+    .group.animate {
+        animation: spin 12s infinite linear; /* Slightly slowed down on mobile so it's readable to the eye */
+    }
 }
