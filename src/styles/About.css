@@ -88,6 +88,68 @@
   transform: translateY(0);
 }
 
+/* Container for all staff profiles */
+.staff {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px; /* Spacing between different staff members */
+  font-family: 'Arial', sans-serif; /* Clean, modern sans-serif */
+}
+
+.meet{
+  margin-bottom: -30px;
+}
+
+/* Individual profile row */
+/* Individual profile row */
+.profile {
+  display: flex;
+  align-items: center; 
+  gap: 40px; 
+  
+  /* The Magic Fix: width calculation tells it to be exactly full screen MINUS the 15% margins on both sides */
+  width: 80%; 
+  max-width: 1200px; 
+  margin: 15px auto; /* 'auto' perfectly handles horizontal centering */
+}
+
+/* Logo styling */
+.profile-img {
+  width: auto;
+  height: 50px;
+  flex-shrink: 0; /* Prevents the logo from getting squished if text is long */
+}
+
+/* The red content banner */
+.profile-content {
+  background-color: var(--primary); /* Using a fallback/fixed team red color */
+  color: #ffffff;
+  padding: 15px 25px; /* Shaved down vertical padding to make boxes shorter */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 1; /* Tells the red box to cleanly take up the rest of the available row width */
+}
+
+/* Staff Name and Title */
+.profile-content h2 {
+  margin: 0 0 8px 0; /* Clears default margins, adds slight bottom gap */
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* Biography / Description text */
+.profile-content p {
+  margin: 0;
+  font-size: 1rem;
+  color: #f0f0f0; /* Slightly softer white for readability */
+  line-height: 1.4;
+}
+
+
+
 /* --- Mobile View Adjustments --- */
 @media screen and (max-width: 768px) {
   /* 1. Completely hides the image side wrapper on mobile devices */
@@ -110,5 +172,16 @@
   /* 4. Keeps the mission statement from shrinking too narrow on mobile */
   .mission {
     margin: 30px 5% 40px 5%;
+  }
+
+  /* ✅ 5. Hides the profile images/logos entirely on mobile views */
+  .profile-img {
+    display: none !important;
+  }
+
+  /* Optional: Adjusts the profile container width on mobile so it looks balanced */
+  .profile {
+    width: 90%; 
+    margin: 10px auto;
   }
 }

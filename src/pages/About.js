@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import '../styles/About.css'
 import image from '../assets/ourstory1.JPG'
 import Carousel from '../components/PhotoCarousel'
+import logo from '../assets/bwlogosmall.png'
 
 function About() {
   
@@ -66,6 +67,31 @@ function About() {
       <div className='reveal'>
         <Carousel />
       </div>
+
+      <div className='meet reveal'>
+        <header className="section-header">MEET THE TEAM</header>
+      </div>
+
+      <div className = 'staff reveal'>
+          <div className= 'profile'>
+              <img src = {logo} alt = '' className = 'profile-img'/>
+              <div className = 'profile-content'>
+                   <h2>William Song - Director of Operations</h2>
+                   <p>Will helped found the team in 2023. He currently is the captain of Needham Varisty and plays Militia Nationals.</p>
+              </div>
+          </div>
+        
+          <div className= 'profile'>
+              <img src = {logo} alt = '' className = 'profile-img'/>
+              <div className = 'profile-content'>
+                   <h2>Alex Duan - Assistant Director of Operations</h2>
+                   <p>Alex also helped found the team in 2023. He is a student at Colby College and made this website.</p>
+              </div>
+          </div>
+
+      </div>
+
+
     </div>
   )
 }
