@@ -316,7 +316,7 @@ function Register() {
                                     Please complete your registration payment. Your application cannot be processed until payment is validated.
                                 </p>
                         <div className='checkout'>
-                            <div>
+                            <div className="checkout-summary">
                                 <h3>Summary</h3>
                                 <p><strong>Name:</strong> {values.firstName} {values.lastName}</p>
                                 <p><strong>Email:</strong> {values.playerEmail}, {values.parentEmail}</p>
@@ -324,7 +324,7 @@ function Register() {
                                 <p><strong>Age:</strong> {values.ageGroup}</p>
                             </div>
 
-                            <div>
+                            <div className="checkout-payment">
 
                                     {/* --- PayPal Dynamic Container --- */}
                                 <div className="paypal-wrapper" style={{ width: '100%', textAlign: 'center', margin: '30px auto' }}>

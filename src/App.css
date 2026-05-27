@@ -69,3 +69,26 @@ body {
   -moz-osx-font-smoothing: grayscale;
   animation: fadeInPage 0.8s ease-in-out;
 }
+
+/* --- Mobile Layout Optimizations --- */
+@media screen and (max-width: 768px) {
+  .section-header {
+    width: 100%;             /* 💡 Forces the red background banner to span the entire screen width */
+    margin: 30px 0 20px 0;   /* 💡 Flushes the left margin to 0 so the banner stretches perfectly edge-to-edge */
+    padding: 8px 15px;       /* 💡 Slightly increases inner padding so the text isn't mashed against the screen edge */
+    font-size: 1.8em;        /* 💡 Scales down the font size a little bit so long titles don't wrap awkwardly on small phones */
+    text-align: left;      /* Optional: Centers the header text on mobile. Delete this line if you prefer it left-aligned! */
+  }
+
+  input[type="text"], 
+  input[type="email"], 
+  input[type="tel"],
+  input[type="textarea"],
+  .form-group input {
+    width: 100% !important; 
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 10px; /* Gives extra tap room for fingers typing on glass */
+    font-size: 16px; /* Prevents iOS Safari from auto-zooming into fields */
+  }
+}

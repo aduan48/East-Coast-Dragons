@@ -112,7 +112,29 @@ input[type = "radio"]{
 
 .warning{
     color: var(--primary);
-    margin-left: 150px;
-    margin-right: 150px;
+    margin-left: 15%;
+    margin-right: 15%;
     margin-bottom: -50px;
+}
+
+/* --- Mobile Responsive Optimizations --- */
+@media screen and (max-width: 768px) {
+    /* 1. Flips side-by-side layout to top-and-bottom stacked layout */
+    .checkout {
+        flex-direction: column;
+        align-items: center; /* Centers items vertically on mobile */
+        gap: 20px;           /* Tightens up the gap between sections */
+        margin: 20px 5%;    /* Adds breathing room to the edges of mobile screens */
+    }
+
+    /* 2. Optimizes the main form padding so fields don't look squished on phones */
+    .form {
+        margin: 0 5%;
+        padding: 10px 5px;
+    }
+
+    /* 3. Adjusts the select field width to occupy full screen on mobile */
+    .tournamentSelect {
+        width: 100%;
+    }
 }

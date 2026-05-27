@@ -87,3 +87,28 @@
   opacity: 1;
   transform: translateY(0);
 }
+
+/* --- Mobile View Adjustments --- */
+@media screen and (max-width: 768px) {
+  /* 1. Completely hides the image side wrapper on mobile devices */
+  .image-side {
+    display: none !important;
+  }
+
+  /* 2. Makes the text section take up the full container width instead of 70% */
+  .text-side {
+    flex: 100%;
+  }
+
+  /* 3. Adjusts the text flex container row layout to stack cleanly */
+  .about-us-content {
+    flex-direction: column;
+    margin: 20px 5%; /* Adds breathing room to the edges of mobile screens */
+    padding: 0;
+  }
+
+  /* 4. Keeps the mission statement from shrinking too narrow on mobile */
+  .mission {
+    margin: 30px 5% 40px 5%;
+  }
+}
