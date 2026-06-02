@@ -181,6 +181,7 @@ function Register() {
                 parentSig: '',
                 playerSig: '',
             });
+            setIsPaid(false);
 
         } catch (error) {
             console.error("Error submitting form:", error);
