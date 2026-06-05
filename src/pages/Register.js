@@ -136,58 +136,45 @@ function Register() {
         setStep(step - 1);
         scrollToSection('register-header')
     }
+
        
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (!isPaid) {
-            alert("Please complete the PayPal payment before submitting your entry.");
+            alert("Please complete the PayPal payment before submitting.");
             return;
         }
 
-        
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzv0X2bJrwirED3DZAemM7tSf3sVhD2p02jfVadDjkBLDIqOzf-wA7OJowxGbneOdfkpw/exec"
         try {
-            // Send the values state as a stringified JSON body via POST request
-            const response = await fetch(SCRIPT_URL, {
-                method: "POST",
-                mode: "no-cors", // Necessary to prevent CORS errors with Apps Script redirects
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(values),
+            const response = await fetch("/.netlify/functions/submit-registration", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(values),
             });
 
-            console.log("Fetch executed. Response status (opaque):", response.status);
+            const result = await response.json();
 
-            // Note: because of 'no-cors', response.status will return 0. 
-            // If it doesn't catch an error, it hit the endpoint successfully.
-            alert("Registration Submitted Successfully! We will email you once we have processed your submission.");
-            
-            // Optional: Clear out local storage and reset form if desired
-            localStorage.removeItem('register_step');
-            localStorage.removeItem('register_values');
+            if (result.result === "success") {
+            alert("Registration Submitted! We'll email you once processed.");
+            localStorage.removeItem("register_step");
+            localStorage.removeItem("register_values");
             setStep(1);
             setValues({
-                firstName: '',
-                lastName: '',
-                playerEmail: '',
-                parentEmail: '',
-                phoneNumber: '',
-                ageGroup: '',
-                position: '',
-                tournamentSelect: 'prep-cup',
-                waiver: '',
-                parentSig: '',
-                playerSig: '',
+                firstName: "", lastName: "", playerEmail: "",
+                parentEmail: "", phoneNumber: "", ageGroup: "",
+                position: "", tournamentSelect: "Prep Cup (6/12-14)",
+                waiver: "", parentSig: "", playerSig: "",
             });
             setIsPaid(false);
-
+            } else {
+            throw new Error(result.error || "Submission failed");
+            }
         } catch (error) {
-            console.error("Error submitting form:", error);
-            alert("There was an error submitting your registration. Please try again.");
+            console.error("Submission error:", error);
+            alert("There was an error submitting. Please try again.");
         }
-    }
+        };
 
     return (
         <div className='register'>
