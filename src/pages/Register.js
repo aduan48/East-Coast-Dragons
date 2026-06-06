@@ -36,17 +36,17 @@ function Register() {
             
             const renderPayPal = () => {
                 if (window.paypal && window.paypal.HostedButtons) {
-                    const container = document.getElementById("paypal-container-25LZLEJYD69VS");
+                    const container = document.getElementById("paypal-container-W4SYP3NQH2LCQ");
                     if (container) container.innerHTML = ""; // Clear old instance if any
                     
                     window.paypal.HostedButtons({
-                        hostedButtonId: "25LZLEJYD69VS",
+                        hostedButtonId: "W4SYP3NQH2LCQ",
                         // 💡 This callback executes right after the user approves the payment inside the PayPal popup window
                         onApprove: function(data, actions) {
                             alert("Payment Successful! Your transaction is verified. You can now submit your registration form.");
                             setIsPaid(true); // Unlocks the submit button automatically
                         }
-                    }).render("#paypal-container-25LZLEJYD69VS");
+                    }).render("#paypal-container-W4SYP3NQH2LCQ");
                 }
             };
 
@@ -316,7 +316,7 @@ function Register() {
 
                                     {/* --- PayPal Dynamic Container --- */}
                                 <div className="paypal-wrapper" style={{ width: '100%', textAlign: 'center', margin: '30px auto' }}>
-                                    <div id="paypal-container-25LZLEJYD69VS"></div>
+                                    <div id="paypal-container-W4SYP3NQH2LCQ"></div>
                                 </div>
 
                                 {/* --- Payment Status Indicator Badge --- */}
