@@ -1,8 +1,8 @@
 # East Coast Dragons
 
-A modern React-based web application built for the East Coast Dragons organization. This project features a responsive layout, a persistent user contact form using React hooks paired with Netlify forms backend, and dynamic smooth scrolling.
+A modern React-based web application built for the East Coast Dragons organization. This project features a responsive layout, a persistent user contact form using React hooks paired with Netlify forms and Google Apps backend, and dynamic smooth scrolling.
 
-## 🚀 Features
+##  Features
 
 Responsive Contact Form: Fully integrated with Netlify forms for serverless submission tracking.
 
@@ -10,13 +10,15 @@ State Persistence: Leverages local storage via custom React hooks (useStorageSta
 
 Smooth Navigation: Custom viewport offset scrolling to account for fixed header positioning.
 
+Google Script API: Automaically stores contact submission and sends confirmation email
+
 Clean UI: Modern, accessible styling using flexbox/grid structures and CSS variables.
 
 ## 🛠️ Built With
 
 Frontend: React (JavaScript, JSX, CSS3)
 
-Hosting & Backend Forms: Netlify
+Hosting & Backend Forms: Netlify, Google Scripts
 
 Version Control: Git & GitHub
 
@@ -48,8 +50,7 @@ Running Locally
 To launch the local development server:
 
 Bash
-npm start
-Open http://localhost:3000 in your browser to view the site.
+netlify dev
 
 ## 🌐 Deployment
 
