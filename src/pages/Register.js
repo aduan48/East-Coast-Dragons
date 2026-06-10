@@ -79,6 +79,10 @@ function Register() {
         playerSig: '',
     })
 
+    const test = (e) => {
+        setIsPaid(true)
+    }
+
     const nextStep = (e) => {
         e.preventDefault(); // Prevent accidental form submission
 
@@ -341,6 +345,7 @@ function Register() {
                                 >
                                     Submit Registration
                                 </button>
+                                <button onClick={test}>Tester</button>
                             </div>
                         </div>
                     )}
