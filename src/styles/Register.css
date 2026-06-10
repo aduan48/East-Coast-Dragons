@@ -69,6 +69,21 @@ input[type = "radio"]{
 
 }
 
+.btn-submit{
+    background-color: var(--primary);
+    color: white;
+    height: 3em;
+    width:auto;
+    font-weight: bold;
+    font-size: 0.875rem;
+    border-radius: 6px;
+    margin-top: 10px;
+    border:none;
+    margin-right: 1vh;
+    padding: 0 5vh;
+
+}
+
 .select{
     margin-top: 8px;
 }
