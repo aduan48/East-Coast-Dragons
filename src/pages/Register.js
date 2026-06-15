@@ -4,19 +4,23 @@ import '../styles/Register.css'
 
 function useStorageState(key, initialState) {
     const [value, setValue] = useState(() => {
-        const saved = localStorage.getItem(key);
-        if (saved !== null) {
-            try {
+        try {
+            const saved = localStorage.getItem(key);
+            if (saved !== null) {
                 return JSON.parse(saved); 
-            } catch (e) {
-                return saved;
             }
+        } catch (e) {
+            console.warn("LocalStorage read blocked by browser privacy settings:", e);
         }
         return initialState;
     });
 
     useEffect(() => {
-        localStorage.setItem(key, typeof value === 'object' ? JSON.stringify(value) : value);
+        try {
+            localStorage.setItem(key, typeof value === 'object' ? JSON.stringify(value) : value);
+        } catch (e) {
+            console.warn("LocalStorage write blocked by browser privacy settings:", e);
+        }
     }, [key, value]);
 
     return [value, setValue];
@@ -51,38 +55,78 @@ function Register() {
     }, [values]);
 
 
-    useEffect(() => {
-        if (step === 4) {
-            const existingScript = document.getElementById('paypal-sdk-script');
-            
-            const renderPayPal = () => {
-                if (window.paypal && window.paypal.HostedButtons) {
-                    const container = document.getElementById("paypal-container-W4SYP3NQH2LCQ");
-                    if (container) container.innerHTML = ""; 
-                    
-                    window.paypal.HostedButtons({
-                        hostedButtonId: "W4SYP3NQH2LCQ",
-                        onApprove: function(data, actions) {
-                            alert("Payment Successful! Your transaction is verified. Processing your registration automatically now...");
-                            setIsPaid(true); 
-                        }
-                    }).render("#paypal-container-W4SYP3NQH2LCQ");
-                }
-            };
+useEffect(() => {
+    if (step === 4) {
+        const existingScript = document.getElementById('paypal-sdk-script');
+        
+        const renderPayPal = () => {
+            if (window.paypal && window.paypal.Buttons) {
+                const container = document.getElementById("paypal-container-W4SYP3NQH2LCQ");
+                if (container) container.innerHTML = ""; 
+                
+                // FIXED: Changed HostedButtons to standard Buttons to enable execution hooks
+                window.paypal.Buttons({
+                    style: {
+                        layout: 'vertical',
+                        shape: 'rect',
+                        label: 'pay'
+                    },
+                    createOrder: function(data, actions) {
+                        // Define your pricing matrix here based on the selected tournament
+                        const priceMap = {
+                            'Prep Cup (6/12-14)': '235.00',
+                            'Girls Harrow Invite (6/19-21)': '235.00',
+                            'Boys Harrow Invite (6/26-28)': '235.00',
+                            'Summer Meltdown (7/17-19)': '235.00',
+                            'CCM Summer Invite (8/1-3)': '235.00',
+                            'Girls Militia Cup (8/7-9)': '235.00',
+                            'Boys Militia Cup (8/14-16)': '235.00'
+                        };
+                        
+                        // Fallback to a base fee if unmatched
+                        const selectedPrice = priceMap[valuesRef.current.tournamentSelect] || '235.00';
 
-            if (!existingScript) {
-                const script = document.createElement('script');
-                script.id = 'paypal-sdk-script';
-                script.src = "https://www.paypal.com/sdk/js?client-id=BAAJuxDxo1LJU4iCMX8Sy_CUWGCE5QRIn3a96B_gp1CuCXZOrARC18_cyJthGOXhdbDAlBl5kjvIIE9J3Y&components=hosted-buttons&enable-funding=venmo&currency=USD";
-                script.crossOrigin = "anonymous";
-                script.async = true;
-                script.onload = renderPayPal;
-                document.body.appendChild(script);
-            } else {
-                renderPayPal();
+                        return actions.order.create({
+                            purchase_units: [{
+                                description: valuesRef.current.tournamentSelect,
+                                amount: {
+                                    currency_code: 'USD',
+                                    value: selectedPrice
+                                }
+                            }]
+                        });
+                    },
+                    onApprove: function(data, actions) {
+                        // Captures the funds directly via client-side transaction response
+                        return actions.order.capture().then(function(details) {
+                            alert("Payment Successful! Your transaction is verified. Processing your registration automatically now...");
+                            setIsPaid(true); // Safely fires your second automated submission useEffect
+                        });
+                    },
+                    onError: function(err) {
+                        console.error("PayPal Transaction Window Error:", err);
+                        alert("An error occurred during the secure checkout interface initialization.");
+                    }
+                }).render("#paypal-container-W4SYP3NQH2LCQ");
             }
+        };
+
+        if (!existingScript) {
+            const script = document.createElement('script');
+            script.id = 'paypal-sdk-script';
+            
+            // 👇 PUT YOUR LIVE CLIENT ID RIGHT HERE 👇
+           script.src = "https://www.paypal.com/sdk/js?client-id=Ab0s72Y4aPTFzegRugr3qeQV2Q_eVKOxuvUNx5MDBkh7dnA1upE9SEbUEirpgdgOnj5AC2cRh5A5CEVT&currency=USD";
+            // SAND BOX script.src = "https://www.paypal.com/sdk/js?client-id=ASL_Yzq1AfT4nrv25FOr9Fqp8wAJkBHwvOP8JdneNm0vM0PLhr2CQ9VTljVXXwWJaPkDUor9dA4KwbQa&currency=USD"
+            script.crossOrigin = "anonymous";
+            script.async = true;
+            script.onload = renderPayPal;
+            document.body.appendChild(script);
+        } else {
+            renderPayPal();
         }
-    }, [step, setIsPaid]);
+    }
+}, [step, setIsPaid]);
 
 
     // 5. FIXED AUTOMATIC SUBMISSION TRIGGER (No more closures or missing dependencies)
@@ -315,6 +359,7 @@ function Register() {
                                     <p><strong>Email:</strong> {values.playerEmail}, {values.parentEmail}</p>
                                     <p><strong>Tournament:</strong> {values.tournamentSelect}</p>
                                     <p><strong>Age:</strong> {values.ageGroup}</p>
+                                    <p><strong>TOTAL: $235.00</strong></p>
                                 </div>
 
                                 <div className="checkout-payment">
@@ -338,7 +383,7 @@ function Register() {
                                 <button 
                                     type='button' 
                                     className={`btn-submit ${isPaid ? 'btn-processing' : 'btn-disabled'}`}
-                                    disabled={true}
+                                    disabled={!isPaid}
                                 >
                                     {isPaid ? "Processing..." : "Submit Registration"}
                                 </button>
