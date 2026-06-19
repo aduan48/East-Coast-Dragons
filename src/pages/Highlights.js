@@ -2,6 +2,10 @@ import React from 'react'
 import articleImg from '../assets/victory-post.png'
 import '../styles/Highlights.css'
 
+/**
+ * 
+ * @returns This returns the current news we have going on in the program
+ */
 function Highlights() {
   return (
     <div id = 'highlights'> 

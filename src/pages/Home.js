@@ -5,7 +5,7 @@ import Schedule from './Schedule'
 import Contact from './Contact'
 import { useLocation } from 'react-router-dom';
 import Carousel from '../components/PhotoCarousel'
-
+ 
 function Home() {
 
   const { pathname, hash } = useLocation();

@@ -2,7 +2,6 @@
     background:var(--secondary);
     height:10vh;
     width:100%;
-    /*Margin collapse so need display:flex*/
     display: flex;
     justify-content:center;
     align-items: center;
@@ -18,16 +17,13 @@
 
 .socialMedia  {
 
-      flex: 50%;
+  flex: 50%;
   height: 100%;
   display: flex;
   align-items: center;
-  /* Change this from center to flex-end */
   justify-content: flex-end; 
-  
-  /* Add this to create a nice gap from the edge */
   padding-right: 30px;
-}/* Use margin instead if you want space before the strip starts */
+}
 
 
 .footer p {
@@ -36,6 +32,6 @@
   height: 100%;
   display: flex;
   align-items: center;
-  padding-left: 0;    /* Changed to 0 so the white strip can start where you want */
+  padding-left: 0; 
   margin-left: 50px; 
 }

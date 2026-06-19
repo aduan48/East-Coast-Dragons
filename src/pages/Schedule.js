@@ -3,13 +3,26 @@ import { useState, useEffect } from 'react';
 import '../styles/Table.css'
 import '../styles/Schedule.css'
 
+/**
+ * 
+ * @returns The schedule component
+ */
 function Schedule() {
-    const [schedule, setSchedule] = useState([]);
+
+    const [schedule, setSchedule] = useState([]); //creates the tournament  schedule
     const [scheduleGroup, setScheduleGroup] = useState("U18")
 
-    const [lineup, setLineup] = useState([]);
+    //updates when the schedule group gets changes via dropdown
+    const handleChange = (event)=>{
+        setScheduleGroup(event.target.value);
+    }
+
+    const [lineup, setLineup] = useState([]); //creates teh line up schedule 
 
 
+    /**
+     * featches data from getschedule each time the scheduled group gets changes
+     */
     useEffect(() => {
         async function fetchData() {
             try{
@@ -28,19 +41,31 @@ function Schedule() {
         fetchData();
     }, [scheduleGroup]);
 
+    /**
+     * runs once and ony fetches the data ofr the tournament set up
+     */
     useEffect(() => {
         async function fetchLineupData() {
             try {
                 const response = await fetch(`/.netlify/functions/getlineup`); // No query param needed
                 if(response.ok) {
                     setLineup(await response.json()); // Save to your second state
+                }else{
+                    console.error("server aint working on the schedule lil bro");
                 }
             } catch(error) { console.error("Lineup fetch failed", error); }
         }
         fetchLineupData();
     }, []);
 
-
+    /**
+     * For the line up data, takes data nd creates each row
+     * @param id 
+     * @param date 
+     * @param tournamentName 
+     * @param state 
+     * @returns 
+     */
     function tourneyInfo(id, date, tournamentName, state){
         return(
             <tr className = 'row' key={id}>
@@ -52,6 +77,15 @@ function Schedule() {
         )
     }
 
+    /**
+     * Takes the game schedule for each age group
+     * @param  id 
+     * @param date 
+     * @param time 
+     * @param rink 
+     * @param opponent 
+     * @returns 
+     */
     function info(id, date, time, rink, opponent){
         return(
             <tr className = 'row' key={id}>
@@ -64,9 +98,6 @@ function Schedule() {
         )
     }
 
-    const handleChange = (event)=>{
-        setScheduleGroup(event.target.value);
-    }
 
 
   return (

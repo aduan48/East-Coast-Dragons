@@ -8,21 +8,19 @@
   margin-top: -20px;
 }
 
-/* Image takes up 40% of the container */
 .image-side {
   flex: 30%; 
 }
 
 .about-us-content {
   display: flex;
-  flex-direction: row;       /* Forces image and text side-by-side */
+  flex-direction: row;       
   justify-content: center;
-  align-items: flex-start;   /* Aligns them perfectly at the top */
-  max-width: 1200px;         /* Limits total width like the screenshot */
-  margin: 40px 10%;         /* Centers the container horizontally */
+  align-items: flex-start;  
+  max-width: 1200px;      
+  margin: 40px 10%;         
   padding: 0 20px;
   gap: 20px;   
-            /* Clean space between the image and text blocks */
 }
 
 .our-story-item img {
@@ -31,27 +29,24 @@
   height: auto;             
   max-height: 80vh;         
   object-fit: contain;      
-  
-  /* 💡 THESE TWO LINES FORCE THE ALIGNMENT TO THE LEFT EDGE */
   object-position: left top; 
   margin: 0;                 
 }
 
 .our-story-item p {
   font-family: Arial, sans-serif;
-  font-size: 1.05rem;        /* Sizing matches screenshot readability */
-  color: #b3b3b3;            /* A muted, elegant grayish-white for body copy */
-  line-height: 1.6;          /* Clean line breathing room */
-  margin-bottom: 0px;       /* Margin between paragraph blocks */
+  font-size: 1.05rem;     
+  color: #b3b3b3;        
+  line-height: 1.6;        
+  margin-bottom: 0px;       
 }
 
-/* --- TYPOGRAPHY (TEXT STYLING) --- */
 .our-story-item h1 {
   font-family: Arial, sans-serif;
   font-size: 2rem;
-  font-weight: 800;          /* Heavy bold title matching screenshot */
-  color: #ffffff;            /* Crisp white headers */
-  text-transform: uppercase; /* CAPITALIZED TITLE */
+  font-weight: 800;          
+  color: #ffffff;           
+  text-transform: uppercase; 
   margin-bottom: 0px;
   letter-spacing: 0.5px;
   text-align: center;
@@ -66,15 +61,15 @@
 
 .mission p {
   font-family: Arial, sans-serif;
-  font-size: 1.05rem;        /* Sizing matches screenshot readability */
-  color: white;            /* A muted, elegant grayish-white for body copy */
-  line-height: 1.6;          /* Clean line breathing room */
-  margin-bottom: 0px;       /* Margin between paragraph blocks */
+  font-size: 1.05rem;      
+  color: white;            
+  line-height: 1.6;          
+  margin-bottom: 0px;      
   font-weight: bold;
   text-align: center;
 }
 
-/* 💡 The starting state of the element (Invisible & shifted down 30px) */
+/* The starting state of the element (Invisible & shifted down 30px) */
 .reveal {
   opacity: 0;
   transform: translateY(30px);
@@ -82,7 +77,7 @@
   will-change: opacity, transform;
 }
 
-/* 💡 The animated state when it scrolls into view */
+/*  The animated state when it scrolls into view */
 .reveal.active {
   opacity: 1;
   transform: translateY(0);
@@ -102,84 +97,80 @@
 }
 
 /* Individual profile row */
-/* Individual profile row */
 .profile {
   display: flex;
   align-items: center; 
   gap: 40px; 
-  
-  /* The Magic Fix: width calculation tells it to be exactly full screen MINUS the 15% margins on both sides */
   width: 80%; 
   max-width: 1200px; 
-  margin: 15px auto; /* 'auto' perfectly handles horizontal centering */
+  margin: 15px auto; 
 }
 
 /* Logo styling */
 .profile-img {
   width: auto;
   height: 50px;
-  flex-shrink: 0; /* Prevents the logo from getting squished if text is long */
+  flex-shrink: 0; 
 }
 
 /* The red content banner */
 .profile-content {
-  background-color: var(--primary); /* Using a fallback/fixed team red color */
+  background-color: var(--primary); 
   color: #ffffff;
-  padding: 15px 25px; /* Shaved down vertical padding to make boxes shorter */
+  padding: 15px 25px; 
   display: flex;
   flex-direction: column;
   justify-content: center;
-  flex-grow: 1; /* Tells the red box to cleanly take up the rest of the available row width */
+  flex-grow: 1; 
 }
 
 /* Staff Name and Title */
 .profile-content h2 {
-  margin: 0 0 8px 0; /* Clears default margins, adds slight bottom gap */
+  margin: 0 0 8px 0; 
   font-size: 1.8rem;
   font-weight: 700;
   letter-spacing: 0.5px;
 }
 
-/* Biography / Description text */
+
 .profile-content p {
   margin: 0;
   font-size: 1rem;
-  color: #f0f0f0; /* Slightly softer white for readability */
+  color: #f0f0f0; 
   line-height: 1.4;
 }
 
 
-
 /* --- Mobile View Adjustments --- */
 @media screen and (max-width: 768px) {
-  /* 1. Completely hides the image side wrapper on mobile devices */
+  /*Completely hides the image side wrapper on mobile devices */
   .image-side {
     display: none !important;
   }
 
-  /* 2. Makes the text section take up the full container width instead of 70% */
+  /* Makes the text section take up the full container width instead of 70% */
   .text-side {
     flex: 100%;
   }
 
-  /* 3. Adjusts the text flex container row layout to stack cleanly */
+  /* Adjusts the text flex container row layout to stack cleanly */
   .about-us-content {
     flex-direction: column;
     margin: 20px 5%; /* Adds breathing room to the edges of mobile screens */
     padding: 0;
   }
 
-  /* 4. Keeps the mission statement from shrinking too narrow on mobile */
+  /* Keeps the mission statement from shrinking too narrow on mobile */
   .mission {
     margin: 30px 5% 40px 5%;
   }
 
-  /* ✅ 5. Hides the profile images/logos entirely on mobile views */
+  /* Hides the profile images/logos entirely on mobile views */
   .profile-img {
     display: none !important;
   }
 
-  /* Optional: Adjusts the profile container width on mobile so it looks balanced */
+  /* Adjusts the profile container width on mobile so it looks balanced */
   .profile {
     width: 90%; 
     margin: 10px auto;

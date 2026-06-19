@@ -1,8 +1,7 @@
 /* --- THE HEADER BACKDROP WRAPPER --- */
 .header-container {
   width: 100vw;              
-  /* 💡 CHANGED: Subtracts the navbar height so the hero section fits perfectly without causing a scrollbar */
-  height: calc(100vh - 60px); /* Adjust 60px to match your actual navbar height if needed */
+  height: calc(100vh - 60px);
   position: relative;        
   margin: 0;                 
   padding: 0;
@@ -36,8 +35,8 @@
   
   display: flex;
   flex-direction: column;
-  justify-content: center;   /* Keeps the layout group vertically centered */
-  align-items: center;       /* Keeps the layout group horizontally centered */
+  justify-content: center;   
+  align-items: center;    
   box-sizing: border-box;
   padding: 20px;
 }
@@ -48,7 +47,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 50px;       /* Spacing between the large logo and the Register button */
+  margin-bottom: 50px;     
   width: 100%;
 }
 
@@ -57,18 +56,18 @@
   font-family: Arial, Helvetica, sans-serif;
   font-size: 24px;
   color: #ffffff;
-  letter-spacing: 8px;       /* Elegant wide tracking */
+  letter-spacing: 8px;    
   font-weight: 300;
   text-transform: uppercase;
-  margin: 0;                 /* Stripped margins */
+  margin: 0;               
   margin-bottom: -5vh; 
-  font-weight: 1000;     /* 💡 NEGATIVE MARGIN: Pulls the Dragons logo up closer to the text */
+  font-weight: 1000;     
 }
 
 /* --- DRAGONS LOGO ASSET --- */
 .header-logo {
-  width: 650px;              /* 💡 INCREASED WIDTH: Makes the script logo significantly larger */
-  max-width: 85%;            /* Prevents the logo from clipping on smaller laptop screens */
+  width: 650px;              
+  max-width: 85%;        
   height: auto;
   object-fit: contain;
   filter: drop-shadow(0px 4px 25px rgba(0, 0, 0, 0.7)); 
@@ -105,11 +104,11 @@
 /* --- MOBILE RESPONSIVENESS --- */
 @media only screen and (max-width: 768px) {
   .header-logo {
-    width: 85%;              /* Scales down cleanly on mobile screens */
+    width: 85%;             
   }
   .welcome-text {
     font-size: 16px;
     letter-spacing: 4px;
-    margin-bottom: 0px;      /* Reset negative margin slightly for mobile spacing */
+    margin-bottom: 0px;      
   }
 }

@@ -14,7 +14,7 @@ Google Script API: Automaically stores contact submission and sends confirmation
 
 Clean UI: Modern, accessible styling using flexbox/grid structures and CSS variables.
 
-## 🛠️ Built With
+##  Built With
 
 Frontend: React (JavaScript, JSX, CSS3)
 
@@ -22,7 +22,7 @@ Hosting & Backend Forms: Netlify, Google Scripts
 
 Version Control: Git & GitHub
 
-## 💻 Getting Started
+##  Getting Started
 
 Follow these instructions to get a copy of the project up and running on your local machine for development and testing purposes.
 
@@ -52,13 +52,13 @@ To launch the local development server:
 Bash
 netlify dev
 
-## 🌐 Deployment
+## Deployment
 
 This project is automatically built and deployed via Netlify when changes are pushed to the main branch.
 
 Netlify Forms Configuration
 The contact form relies on a shadow HTML form located in public/index.html to allow Netlify’s build bots to register the submission endpoint without relying on an external server API.
 
-## 📝 License
+## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.

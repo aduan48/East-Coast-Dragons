@@ -3,7 +3,7 @@
     display: flex;
     width: 80%;
     margin: 50px auto;
-    overflow: hidden; /* Changed from overflow-y: auto to prevent unexpected vertical scrolling */
+    overflow: hidden; 
     padding: 25px 0;
 }
 
@@ -38,19 +38,19 @@
 /* --- Mobile Responsive Loop Adjustments --- */
 @media screen and (max-width: 768px) {
     .carousel {
-        width: 100%;       /* 💡 Uses the full screen width on phones edge-to-edge */
-        margin: 20px 0;    /* Tightens up external vertical page spacing */
+        width: 100%;   
+        margin: 20px 0;   
         padding: 10px 0;
     }
 
     .group {
-        gap: 1.5em;        /* 💡 Shrinks the gap down so items don't have deep black empty spaces */
+        gap: 1.5em;        /* Shrinks the gap down so items don't have deep black empty spaces */
         padding-right: 1.5em; /* Must match the gap exactly to keep the infinite loop seamless */
     }
 
     .card {
-        flex: 0 0 65vw;    /* 💡 Forces each photo to take up roughly 65% of the viewport width */
-        height: 40vh;      /* 💡 Constraints height dynamically based on the phone screen aspect ratio */
+        flex: 0 0 65vw;    /* Forces each photo to take up roughly 65% of the viewport width */
+        height: 40vh;      /* Constraints height dynamically based on the phone screen aspect ratio */
     }
     
     .group.animate {

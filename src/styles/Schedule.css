@@ -1,7 +1,6 @@
-/* --- 💡 NEW WRAPPER CLASS --- */
 .tourney-header-wrapper {
   display: flex;
-  align-items: center;       /* Centers the dropdown vertically relative to the red bar */
+  align-items: center;       
   justify-content: flex-start; /* Aligns them to start on the left side */
   width: 70%;                /* Matches the total alignment width of your table below */
   margin: 20px auto -5px auto; /* Centers the whole row group horizontally on the page */
@@ -22,7 +21,7 @@
   font-weight: bold;
   background: var(--primary);
   padding: 15px;
-  flex-grow: 1;              /* 💡 Forces the red bar to take up all remaining space on the right */
+  flex-grow: 1;              /* Forces the red bar to take up all remaining space on the right */
   border-radius: 3px;
   text-align: center;
   margin: auto auto 5vh auto;
@@ -36,7 +35,7 @@
   font-weight: bold;
   background: var(--darker-grey);
   padding: 15px;
-  flex-grow: 1;              /* 💡 Forces the red bar to take up all remaining space on the right */
+  flex-grow: 1;              /* Forces the red bar to take up all remaining space on the right */
   border-radius: 3px;
   text-align: center;
 }

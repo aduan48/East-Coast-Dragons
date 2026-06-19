@@ -1,7 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react' // 1. Added useRef import
 import '../styles/Register.css'
 
-
+/**
+ * A custom  hook that manages state and synchronizes it with `localStorage`.
+ *
+ * * @param {string} key - The key under which the state is stored in `localStorage`.
+ * @param {T} initialState - The default value to use if no value is found in `localStorage`.
+ * * @returns {[T, React.Dispatch<React.SetStateAction<T>>]} A stateful value and a function to update it, matching the signature of `useState`.
+ * * @throws {SyntaxError} Note: If a primitive string is saved, subsequent reads will fail during `JSON.parse()`.
+ */
 function useStorageState(key, initialState) {
     const [value, setValue] = useState(() => {
         try {
@@ -26,7 +33,10 @@ function useStorageState(key, initialState) {
     return [value, setValue];
 }
 
-
+/**
+ * Is a form that helps build a submission payments and backend pipeline
+ * @returns the multi step regsiter function
+ */
 function Register() {
     const [step, setStep] = useStorageState('register_step', 1);
     const [isPaid, setIsPaid] = useStorageState('register_isPaid', false);
@@ -54,82 +64,84 @@ function Register() {
         valuesRef.current = values;
     }, [values]);
 
+    /**
+     * This handles the payment processes when it is on the last step of the form
+     */
+    useEffect(() => {
+        if (step === 4) {
+            
+            const renderPayPal = () => {
+                if (window.paypal && window.paypal.Buttons) {
+                    const container = document.getElementById("paypal-container-W4SYP3NQH2LCQ");
+                    if (container) container.innerHTML = ""; 
+                    
+                    // FIXED: Changed HostedButtons to standard Buttons to enable execution hooks
+                    window.paypal.Buttons({
+                        style: {
+                            layout: 'vertical',
+                            shape: 'rect',
+                            label: 'pay'
+                        },
+                        createOrder: function(data, actions) {
+                            // Define the pricing matrix here based on the selected tournament
+                            const priceMap = {
+                                'Prep Cup (6/12-14)': '235.00',
+                                'Girls Harrow Invite (6/19-21)': '235.00',
+                                'Boys Harrow Invite (6/26-28)': '235.00',
+                                'Summer Meltdown (7/17-19)': '235.00',
+                                'CCM Summer Invite (8/1-3)': '235.00',
+                                'Girls Militia Cup (8/7-9)': '235.00',
+                                'Boys Militia Cup (8/14-16)': '235.00'
+                            };
+                            
+                            // Fallback to a base fee if unmatched
+                            const selectedPrice = priceMap[valuesRef.current.tournamentSelect] || '235.00';
 
-useEffect(() => {
-    if (step === 4) {
-        const existingScript = document.getElementById('paypal-sdk-script');
-        
-        const renderPayPal = () => {
-            if (window.paypal && window.paypal.Buttons) {
-                const container = document.getElementById("paypal-container-W4SYP3NQH2LCQ");
-                if (container) container.innerHTML = ""; 
-                
-                // FIXED: Changed HostedButtons to standard Buttons to enable execution hooks
-                window.paypal.Buttons({
-                    style: {
-                        layout: 'vertical',
-                        shape: 'rect',
-                        label: 'pay'
-                    },
-                    createOrder: function(data, actions) {
-                        // Define your pricing matrix here based on the selected tournament
-                        const priceMap = {
-                            'Prep Cup (6/12-14)': '235.00',
-                            'Girls Harrow Invite (6/19-21)': '235.00',
-                            'Boys Harrow Invite (6/26-28)': '235.00',
-                            'Summer Meltdown (7/17-19)': '235.00',
-                            'CCM Summer Invite (8/1-3)': '235.00',
-                            'Girls Militia Cup (8/7-9)': '235.00',
-                            'Boys Militia Cup (8/14-16)': '235.00'
-                        };
-                        
-                        // Fallback to a base fee if unmatched
-                        const selectedPrice = priceMap[valuesRef.current.tournamentSelect] || '235.00';
+                            return actions.order.create({
+                                purchase_units: [{
+                                    description: valuesRef.current.tournamentSelect,
+                                    amount: {
+                                        currency_code: 'USD',
+                                        value: selectedPrice
+                                    }
+                                }]
+                            });
+                        },
+                        onApprove: function(data, actions) {
+                            // Captures the funds directly via client-side transaction response
+                            return actions.order.capture().then(function(details) {
+                                alert("Payment Successful! Your transaction is verified. Processing your registration automatically now...");
+                                setIsPaid(true); // Safely fires your second automated submission useEffect
+                            });
+                        },
+                        onError: function(err) {
+                            console.error("PayPal Transaction Window Error:", err);
+                            alert("An error occurred during the secure checkout interface initialization.");
+                        }
+                    }).render("#paypal-container-W4SYP3NQH2LCQ");
+                }
+            };
 
-                        return actions.order.create({
-                            purchase_units: [{
-                                description: valuesRef.current.tournamentSelect,
-                                amount: {
-                                    currency_code: 'USD',
-                                    value: selectedPrice
-                                }
-                            }]
-                        });
-                    },
-                    onApprove: function(data, actions) {
-                        // Captures the funds directly via client-side transaction response
-                        return actions.order.capture().then(function(details) {
-                            alert("Payment Successful! Your transaction is verified. Processing your registration automatically now...");
-                            setIsPaid(true); // Safely fires your second automated submission useEffect
-                        });
-                    },
-                    onError: function(err) {
-                        console.error("PayPal Transaction Window Error:", err);
-                        alert("An error occurred during the secure checkout interface initialization.");
-                    }
-                }).render("#paypal-container-W4SYP3NQH2LCQ");
-            }
-        };
-
-        if (!existingScript) {
             const script = document.createElement('script');
             script.id = 'paypal-sdk-script';
             
-            // 👇 PUT YOUR LIVE CLIENT ID RIGHT HERE 👇
-           script.src = "https://www.paypal.com/sdk/js?client-id=Ab0s72Y4aPTFzegRugr3qeQV2Q_eVKOxuvUNx5MDBkh7dnA1upE9SEbUEirpgdgOnj5AC2cRh5A5CEVT&currency=USD";
-            // SAND BOX script.src = "https://www.paypal.com/sdk/js?client-id=ASL_Yzq1AfT4nrv25FOr9Fqp8wAJkBHwvOP8JdneNm0vM0PLhr2CQ9VTljVXXwWJaPkDUor9dA4KwbQa&currency=USD"
+            script.src = "https://www.paypal.com/sdk/js?client-id=Ab0s72Y4aPTFzegRugr3qeQV2Q_eVKOxuvUNx5MDBkh7dnA1upE9SEbUEirpgdgOnj5AC2cRh5A5CEVT&currency=USD";
+            //SAND BOX script.src = "https://www.paypal.com/sdk/js?client-id=ASL_Yzq1AfT4nrv25FOr9Fqp8wAJkBHwvOP8JdneNm0vM0PLhr2CQ9VTljVXXwWJaPkDUor9dA4KwbQa&currency=USD"
+            
             script.crossOrigin = "anonymous";
             script.async = true;
             script.onload = renderPayPal;
             document.body.appendChild(script);
-        } else {
-            renderPayPal();
+
+            script.onload = renderPayPal;
+
         }
-    }
-}, [step, setIsPaid]);
+    }, [step, setIsPaid]);
 
 
-    // 5. FIXED AUTOMATIC SUBMISSION TRIGGER (No more closures or missing dependencies)
+    /**
+     * automaticaly submits data to google api when it is on the fourt step and stuff is paid
+     */
     useEffect(() => {
         if (step === 4 && isPaid) {
             executeAutoSubmit();
@@ -147,6 +159,7 @@ useEffect(() => {
 
                 if (result.result === "success") {
                     alert("Registration Automatically Submitted Successfully! We'll email you once processed.");
+                    //reveerts back to a blank form on page 1
                     localStorage.removeItem("register_step");
                     localStorage.removeItem("register_values");
                     localStorage.removeItem("register_isPaid");
@@ -168,6 +181,11 @@ useEffect(() => {
         }
     }, [isPaid, step, setStep, setValues, setIsPaid]);
 
+    /**
+     * Each time a button is pressed on the bottom, it will change steps, making sure that each value is filled out
+     * @param e 
+     * @returns 
+     */
     const nextStep = (e) => {
         e.preventDefault(); 
 
@@ -203,10 +221,12 @@ useEffect(() => {
         scrollToSection('register-header');
     }
 
+    //each time a value is changed, they update the values and the local storage state
     const handleChanges = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value })
     }
 
+    //used to scroll to the top
     const scrollToSection = (id) => {
       const element = document.getElementById(id);
       if (element) {
@@ -214,12 +234,14 @@ useEffect(() => {
       }
     };
 
+    //this sets it back to previous pages and scrolls to top
     const prevStep = (e) => {
         e.preventDefault();
         setStep(step - 1);
         scrollToSection('register-header')
     }
 
+    //default in case user pushes button
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!isPaid) {

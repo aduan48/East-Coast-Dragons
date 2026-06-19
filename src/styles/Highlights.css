@@ -1,13 +1,13 @@
 /* --- LAYOUT CONTAINER --- */
 .highlight-content {
   display: flex;
-  flex-direction: row;       /* Forces image and text side-by-side */
+  flex-direction: row;       
   justify-content: center;
-  align-items: flex-start;   /* Aligns them perfectly at the top */
-  max-width: 1200px;         /* Limits total width like the screenshot */
-  margin: 40px auto;         /* Centers the container horizontally */
+  align-items: flex-start;   
+  max-width: 1200px;       
+  margin: 40px auto;      
   padding: 0 20px;
-  gap: 20px;                 /* Clean space between the image and text blocks */
+  gap: 20px;               
 }
 
 /* --- INDIVIDUAL COLUMN BLOCKS --- */
@@ -25,7 +25,7 @@
   max-height: 80vh;         
   object-fit: contain;      
   
-  /* 💡 THESE TWO LINES FORCE THE ALIGNMENT TO THE LEFT EDGE */
+  /* THESE TWO LINES FORCE THE ALIGNMENT TO THE LEFT EDGE */
   object-position: left top; 
   margin: 0;                 
 }
@@ -34,64 +34,64 @@
 .highlight-item h1 {
   font-family: Arial, sans-serif;
   font-size: 2rem;
-  font-weight: 800;          /* Heavy bold title matching screenshot */
-  color: #ffffff;            /* Crisp white headers */
-  text-transform: uppercase; /* CAPITALIZED TITLE */
-  margin-top: 0;             /* Prevents text from sinking lower than the image top */
+  font-weight: 800;         
+  color: #ffffff;           
+  text-transform: uppercase; 
+  margin-top: 0;            
   margin-bottom: 0px;
   letter-spacing: 0.5px;
 }
 
 .highlight-item p {
   font-family: Arial, sans-serif;
-  font-size: 1.05rem;        /* Sizing matches screenshot readability */
-  color: #b3b3b3;            /* A muted, elegant grayish-white for body copy */
-  line-height: 1.6;          /* Clean line breathing room */
-  margin-bottom: 0px;       /* Margin between paragraph blocks */
+  font-size: 1.05rem;     
+  color: #b3b3b3;     
+  line-height: 1.6;      
+  margin-bottom: 0px;  
 }
 
 /* --- THE INSTAGRAM BUTTON --- */
 .highlight-instagram {
-  text-decoration: none;     /* Removes anchor line under button */
+  text-decoration: none;    
   display: inline-block;
   margin-top: 20px;
 }
 
 .highlight-instagram button {
-  background-color: #ffffff; /* Crisp white background */
-  color: #000000;            /* Bold black text */
+  background-color: #ffffff; 
+  color: #000000;           
   border: none;
   font-family: Arial, sans-serif;
   font-weight: 700;
   font-size: 1.1rem;
-  padding: 15px 40px;        /* Wide pill padding layout */
+  padding: 15px 40px;     
   cursor: pointer;
   letter-spacing: 1px;
   transition: opacity 0.2s ease;
 }
 
 .highlight-instagram button:hover {
-  opacity: 0.9;              /* Slight tint on hover */
+  opacity: 0.9;              
 }
 
 /* --- UPDATED IMAGE SCALING CSS --- */
 .highlight-item img {
-  width: auto;               /* Allow width to adjust automatically... */
-  max-width: 100%;          /* ...but never wider than its column */
+  width: auto;           
+  max-width: 100%;          
   height: auto;             
-  max-height: 80vh;         /* 💡 LIMITS THE HEIGHT to 80% of the viewport. This is the key scale fix! */
-  object-fit: contain;      /* Keeps aspect ratio perfect */
+  max-height: 80vh;        
+  object-fit: contain; 
   display: block;           
-  margin: 0 auto;           /* Optional: Centers the scaled image in its column */
+  margin: 0 auto;          
 }
 
 /* --- RESPONSIVENESS (MOBILE DEVICES) --- */
 @media (max-width: 900px) {
   .highlight-content {
-    flex-direction: column;  /* Stack text under image on tablets/phones */
+    flex-direction: column;  
     gap: 20px;
   }
   .highlight-item {
-    width: 100%;             /* Allow blocks to expand to full screen width */
+    width: 100%;             
   }
 }

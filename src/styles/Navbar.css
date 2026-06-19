@@ -8,13 +8,21 @@
 }
  
 
+.navbar a {
+  color: white;
+  text-decoration: none;
+  margin: 20px;
+  font-size: 15px; 
+  margin-right: 10px;
+}
+
 .navbar .leftSide {
   flex: 50%;
   height: 100%;
   display: flex;
   align-items: center;
-  padding-left: 0;    /* Changed to 0 so the white strip can start where you want */
-  margin-left: 0px; /* Use margin instead if you want space before the strip starts */
+  padding-left: 0;   
+  margin-left: 0px; 
 }
 
 .navbar .leftSide img {
@@ -28,20 +36,10 @@
   height: 100%;
   display: flex;
   align-items: center;
-  /* Change this from center to flex-end */
   justify-content: flex-end; 
-  
-  /* Add this to create a nice gap from the edge */
   padding-right: 30px;
 }
 
-.navbar a {
-  color: white;
-  text-decoration: none;
-  margin: 20px;
-  font-size: 15px; 
-  margin-right: 10px;
-}
 
 .navbar .rightSide button {
   background-color: transparent;
@@ -170,6 +168,7 @@
   }
 }
 
+/* Keeps it normal when not on mobile*/
 @media only screen and (min-width: 601px) {
   .navbar .rightSide button {
     display: none;

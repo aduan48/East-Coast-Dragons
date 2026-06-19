@@ -1,8 +1,15 @@
+
+/**
+ * Whenever the payment goes through, it takes the data and sends it to the google sheets api
+ * @param event submit
+ * @returns 
+ */
 exports.handler = async function (event) {
   if (event.httpMethod !== "POST") {
     return { statusCode: 405, body: "Method Not Allowed" };
   }
 
+  //api link
   const GOOGLE_SCRIPT_URL =
     "https://script.google.com/macros/s/AKfycbySeZUUoM0ozt9rE4eiBMzH3BXaexFmZdAZ3OcDTFbYxiUfEuUSgVEb2iAl8CFRQiUSTA/exec";
 

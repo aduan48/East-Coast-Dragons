@@ -4,9 +4,13 @@ import image from '../assets/ourstory1.JPG'
 import Carousel from '../components/PhotoCarousel'
 import logo from '../assets/bwlogosmall.png'
 
+/**
+ * 
+ * @returns the about page with animations
+ */
 function About() {
   
-  // 💡 This hook sets up the scroll listener specifically for this page's elements
+  //sets up the scroll listener specifically for this page's elements
   useEffect(() => {
     const observerOptions = {
       root: null, // Uses the browser window viewport
@@ -15,10 +19,21 @@ function About() {
     };
 
     const handleIntersect = (entries, observer) => {
+      // Loop through all elements whose visibility just crossed the threshold.
+      // The browser batches these into an array if multiple items appear on screen at once.
       entries.forEach((entry) => {
+        
+        // Check if the element is currently moving INTO the user's viewport.
+        // This safely ignores instances where the element is scrolling OUT of view.
         if (entry.isIntersecting) {
+          
+          // Inject the 'active' class directly onto the intersecting HTML element.
+          // This switches its state in CSS to trigger your fade-in/slide-in transition.
           entry.target.classList.add('active');
-          observer.unobserve(entry.target); // Stops watching once animated
+          
+          // Instruct the observer to completely stop tracking this specific DOM node.
+          // This prevents the animation from refiring and saves browser processing power.
+          observer.unobserve(entry.target); 
         }
       });
     };
@@ -31,14 +46,14 @@ function About() {
 
     // Cleanup the event listener when navigating away from the page
     return () => observer.disconnect();
-  }, []);
+  }, []); //only runs on set up
 
   return (
     <div>
       <header className="section-header" id='about-section'>OUR STORY</header>
 
       <div className='about-us-content'>
-        {/* 💡 Animation 1: Left-side text block fades in smoothly */}
+        {/* Animation 1: Left-side text block fades in smoothly */}
         <div className='our-story-item text-side reveal'>
             <p>We didn’t start this to blend in. We started it because summer hockey was missing something: representation, connection, and real community. </p>
             <p>So in 2023, we built our own lane.</p>
@@ -50,7 +65,7 @@ function About() {
             <p>And we’re just getting started.</p>
         </div>
 
-        {/* 💡 Animation 2: Right-side image waits an extra 0.2 seconds for a cinematic, layered layout feel */}
+        {/* Animation 2: Right-side image waits an extra 0.2 seconds for a cinematic, layered layout feel */}
         <div className='our-story-item image-side reveal' style={{ transitionDelay: '0.2s' }}>
           <img src={image} alt='' />
         </div>
@@ -58,12 +73,12 @@ function About() {
 
       <header className="section-header">OUR MISSION</header>
 
-      {/* 💡 Animation 3: Mission Statement block pops into view on scroll */}
+      {/* Animation 3: Mission Statement block pops into view on scroll */}
       <div className='mission reveal'>
         <p>The East Coast Dragons are dedicated to forging the next generation of elite AAA hockey players by providing premier development and exposure opportunities. We are fiercely committed to breaking down barriers, elevating underrepresented communities within ice hockey, and creating an inclusive launchpad for youth athletes to excel both on and off the ice.</p>
       </div>
 
-      {/* 💡 Animation 4: The Photo Carousel tracks separately at the bottom */}
+      {/* Animation 4: The Photo Carousel tracks separately at the bottom */}
       <div className='reveal'>
         <Carousel />
       </div>
