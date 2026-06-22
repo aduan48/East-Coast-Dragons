@@ -109,7 +109,7 @@ function Schedule() {
 
 
         <div id='Schedule' className='curr-tourney-info'>
-            <span>Over The Edge Tournament</span>
+            <span>Harrow Invite Tournament</span>
         </div>
         
         <select className='dropdown' onChange={handleChange} value = {scheduleGroup}>
