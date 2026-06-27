@@ -1,5 +1,5 @@
 const PAYPAL_BASE_URL = process.env.PAYPAL_BASE_URL || "https://api-m.sandbox.paypal.com";
-const GOOGLE_SCRIPT_URL = process.env.GOOGLE_SCRIPT_URL || "https://script.google.com/macros/s/AKfycbySeZUUoM0ozt9rE4eiBMzH3BXaexFmZdAZ3OcDTFbYxiUfEuUSgVEb2iAl8CFRQiUSTA/exec";
+const GOOGLE_SCRIPT_URL = process.env.GOOGLE_SCRIPT_URL;
 
 //gets the acess token with the URL
 async function getAccessToken() {
