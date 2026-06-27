@@ -64,122 +64,135 @@ function Register() {
         valuesRef.current = values;
     }, [values]);
 
+
     /**
-     * This handles the payment processes when it is on the last step of the form
+     * handles the payment
      */
     useEffect(() => {
-        if (step === 4) {
-            
-            const renderPayPal = () => {
-                if (window.paypal && window.paypal.Buttons) {
-                    const container = document.getElementById("paypal-container-W4SYP3NQH2LCQ");
-                    if (container) container.innerHTML = ""; 
-                    
-                    // FIXED: Changed HostedButtons to standard Buttons to enable execution hooks
-                    window.paypal.Buttons({
-                        style: {
-                            layout: 'vertical',
-                            shape: 'rect',
-                            label: 'pay'
-                        },
-                        createOrder: function(data, actions) {
-                            // Define the pricing matrix here based on the selected tournament
-                            const priceMap = {
-                                'Prep Cup (6/12-14)': '235.00',
-                                'Girls Harrow Invite (6/19-21)': '235.00',
-                                'Boys Harrow Invite (6/26-28)': '235.00',
-                                'Summer Meltdown (7/17-19)': '235.00',
-                                'CCM Summer Invite (8/1-3)': '235.00',
-                                'Girls Militia Cup (8/7-9)': '235.00',
-                                'Boys Militia Cup (8/14-16)': '235.00'
-                            };
-                            
-                            // Fallback to a base fee if unmatched
-                            const selectedPrice = priceMap[valuesRef.current.tournamentSelect] || '235.00';
+        if (step !== 4) return;
 
-                            return actions.order.create({
-                                purchase_units: [{
-                                    description: valuesRef.current.tournamentSelect,
-                                    amount: {
-                                        currency_code: 'USD',
-                                        value: selectedPrice
-                                    }
-                                }]
-                            });
-                        },
-                        onApprove: function(data, actions) {
-                            // Captures the funds directly via client-side transaction response
-                            return actions.order.capture().then(function(details) {
-                                alert("Payment Successful! Your transaction is verified. Processing your registration automatically now...");
-                                setIsPaid(true); // Safely fires your second automated submission useEffect
-                            });
-                        },
-                        onError: function(err) {
-                            console.error("PayPal Transaction Window Error:", err);
-                            alert("An error occurred during the secure checkout interface initialization.");
-                        }
-                    }).render("#paypal-container-W4SYP3NQH2LCQ");
+        const renderPayPal = () => {
+            if (!window.paypal || !window.paypal.Buttons) return;
+
+            const container = document.getElementById("paypal-container-W4SYP3NQH2LCQ");
+            if (container) container.innerHTML = "";
+
+            window.paypal.Buttons({
+            style: {
+                layout: "vertical",
+                shape: "rect",
+                label: "pay",
+            },
+
+            createOrder: async () => {
+                const response = await fetch("/.netlify/functions/create-paypal-order", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    tournamentSelect: valuesRef.current.tournamentSelect,
+                }),
+                });
+
+                const order = await response.json();
+
+                if (!response.ok) {
+                throw new Error(order.error || "Could not create PayPal order");
                 }
-            };
 
-            const script = document.createElement('script');
-            script.id = 'paypal-sdk-script';
-            
-            script.src = "https://www.paypal.com/sdk/js?client-id=Ab0s72Y4aPTFzegRugr3qeQV2Q_eVKOxuvUNx5MDBkh7dnA1upE9SEbUEirpgdgOnj5AC2cRh5A5CEVT&currency=USD";
-            //SAND BOX script.src = "https://www.paypal.com/sdk/js?client-id=ASL_Yzq1AfT4nrv25FOr9Fqp8wAJkBHwvOP8JdneNm0vM0PLhr2CQ9VTljVXXwWJaPkDUor9dA4KwbQa&currency=USD"
-            
-            script.crossOrigin = "anonymous";
-            script.async = true;
-            script.onload = renderPayPal;
-            document.body.appendChild(script);
+                return order.id;
+            },
 
-            script.onload = renderPayPal;
-
-        }
-    }, [step, setIsPaid]);
-
-
-    /**
-     * automaticaly submits data to google api when it is on the fourt step and stuff is paid
-     */
-    useEffect(() => {
-        if (step === 4 && isPaid) {
-            executeAutoSubmit();
-        }
-        
-        async function executeAutoSubmit() {
-            try {
-                const response = await fetch("/.netlify/functions/submit-registration", {
+            onApprove: async (data) => {
+                try {
+                //sends the payment to the backend
+                const response = await fetch("/.netlify/functions/capture-paypal-order", {
                     method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(valuesRef.current), // Pulls safely from our synchronized ref
+                    headers: {
+                    "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                    orderID: data.orderID,
+
+                    firstName: valuesRef.current.firstName,
+                    lastName: valuesRef.current.lastName,
+                    playerEmail: valuesRef.current.playerEmail,
+                    parentEmail: valuesRef.current.parentEmail,
+                    phoneNumber: valuesRef.current.phoneNumber,
+                    ageGroup: valuesRef.current.ageGroup,
+                    position: valuesRef.current.position,
+                    tournamentSelect: valuesRef.current.tournamentSelect,
+                    waiver: valuesRef.current.waiver,
+                    parentSig: valuesRef.current.parentSig,
+                    playerSig: valuesRef.current.playerSig,
+                    }),
                 });
 
                 const result = await response.json();
 
-                if (result.result === "success") {
-                    alert("Registration Automatically Submitted Successfully! We'll email you once processed.");
-                    //reveerts back to a blank form on page 1
-                    localStorage.removeItem("register_step");
-                    localStorage.removeItem("register_values");
-                    localStorage.removeItem("register_isPaid");
-                    setStep(1);
-                    setValues({
-                        firstName: "", lastName: "", playerEmail: "",
-                        parentEmail: "", phoneNumber: "", ageGroup: "",
-                        position: "", tournamentSelect: "Prep Cup (6/12-14)",
-                        waiver: "", parentSig: "", playerSig: "",
-                    });
-                    setIsPaid(false);
-                } else {
-                    throw new Error(result.error || "Submission failed");
+                if (!response.ok || result.result !== "success") {
+                    throw new Error(result.error || "Registration failed");
                 }
-            } catch (error) {
-                console.error("Auto-Submission error:", error);
-                alert("Payment went through, but database automation errored. Please contact support to manually log your sheet.");
-            }
+
+                alert("Payment and registration submitted successfully!");
+
+                //resets the form and auto submits
+                localStorage.removeItem("register_step");
+                localStorage.removeItem("register_values");
+                localStorage.removeItem("register_isPaid");
+
+                setStep(1);
+                setValues({
+                    firstName: "",
+                    lastName: "",
+                    playerEmail: "",
+                    parentEmail: "",
+                    phoneNumber: "",
+                    ageGroup: "",
+                    position: "",
+                    tournamentSelect: "Prep Cup (6/12-14)",
+                    waiver: "",
+                    parentSig: "",
+                    playerSig: "",
+                });
+                setIsPaid(false);
+                } catch (error) {
+                    console.error("Payment capture error:", error);
+                    alert("Payment may have gone through, but registration failed. Please contact support.");
+                }
+            },
+
+            onError: (err) => {
+                console.error("PayPal error:", err);
+                alert("PayPal checkout failed.");
+            },
+            }).render("#paypal-container-W4SYP3NQH2LCQ");
+        };
+
+        const existingScript = document.getElementById("paypal-sdk-script");
+
+        if (existingScript) {
+            renderPayPal();
+            return;
         }
-    }, [isPaid, step, setStep, setValues, setIsPaid]);
+
+        const clientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
+
+        if (!clientId) {
+            console.error("PayPal Client ID is missing. Check your .env file!");
+            return; 
+        }
+
+        const script = document.createElement("script");
+        script.id = "paypal-sdk-script";
+        script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}&currency=USD`;
+        script.crossOrigin = "anonymous";
+        script.async = true;
+        script.onload = renderPayPal;
+
+        document.body.appendChild(script);
+    }, [step, setStep, setValues, setIsPaid]);
 
     /**
      * Each time a button is pressed on the bottom, it will change steps, making sure that each value is filled out

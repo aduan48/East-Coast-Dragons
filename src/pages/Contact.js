@@ -75,9 +75,9 @@ function Contact() {
         <form method='POST' name = 'contact' data-netlify="true" onSubmit = {handleSubmit}>
           <input type = "hidden" name = "form-name" value = "contact" />
           <label htmlFor='name'>Name</label>
-          <input type= 'text' id = 'name' name = "name" placeHolder = "Chad" value ={name} onChange={handleName} required/>
+          <input type= 'text' id = 'name' name = "name" placeholder = "Chad" value ={name} onChange={handleName} required/>
           <label htmlFor='email'>Your Email</label>
-          <input type= 'email' id = 'email' name = "email" placeHolder = "example@gmail.com" value ={email} onChange={handleEmail} required/>
+          <input type= 'email' id = 'email' name = "email" placeholder = "example@gmail.com" value ={email} onChange={handleEmail} required/>
           <label htmlFor='message'>Your message</label>
           <textarea id='message' rows="10" columns="30" name="message" placeholder="Leave a comment" value={message} onChange={handleMessage} required></textarea>
           <button type="submit">Submit</button> 
