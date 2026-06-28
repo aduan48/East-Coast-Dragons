@@ -8,6 +8,10 @@
     color: var(--darker-grey);
 }
 
+.copyright{
+  flex-direction: column;
+}
+
 .socialMedia svg {
   color: var(--grey);
   margin: 5px;
@@ -34,4 +38,16 @@
   align-items: center;
   padding-left: 0; 
   margin-left: 50px; 
+  font-size: 15px;
+}
+
+
+.footer a {
+  color: #828282;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding-left: 0; 
+  margin-right: 10px;
+  font-size: 15px;
 }

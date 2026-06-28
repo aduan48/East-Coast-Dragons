@@ -1,6 +1,7 @@
 import React from 'react'
 import '../styles/Footer.css'
 import InstagramIcon from '@mui/icons-material/Instagram'
+import {Link} from 'react-router-dom';
 
 
 /**
@@ -12,7 +13,7 @@ function Footer() {
     <div className='footer'>
 
     <div className='copyright'>    
-        <p>&copy; {new Date().getFullYear()} East Coast Dragons</p>
+        <p><Link to ='/privacy-policy'>Privacy Policy</Link> &copy; {new Date().getFullYear()} East Coast Dragons</p>
       </div>
       <div className='socialMedia'> 
         <a href = "https://www.instagram.com/eastcoastdragons/?hl=en">

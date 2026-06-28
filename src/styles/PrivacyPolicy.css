@@ -1,0 +1,71 @@
+/* Container layout to center the policy and limit its width for readability */
+.policy-background{
+        background-color: white;
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+    align-items: center;
+}
+
+.privacy-container {
+  background-color: white;
+  margin: 40px auto;
+  padding-left: 15%;
+  padding-right: 15%;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  color: #000000;
+  line-height: 1.6;
+}
+
+.privacy-title {
+  font-size: 2.5rem;
+  color: #111111;
+  margin-bottom: 5px;
+}
+
+.privacy-date {
+  color: #666666;
+  font-size: 0.95rem;
+  margin-bottom: 30px;
+}
+
+.privacy-divider {
+  border: 0;
+  border-top: 1px solid #e0e0e0;
+  margin: 30px 0;
+}
+
+.privacy-section h2 {
+  font-size: 1.5rem;
+  color: #222222;
+  margin-top: 25px;
+  margin-bottom: 15px;
+}
+
+/* Custom styling for the bulleted lists */
+.privacy-list {
+  list-style-type: disc; /* Ensures clean, standard dots */
+  padding-left: 25px;    /* Indents the bullets nicely from the left */
+  margin-bottom: 20px;   /* Adds spacing below the entire list */
+}
+
+/* Custom styling for individual bullet items */
+.privacy-list li {
+  margin-bottom: 12px;   /* Adds breathing room between individual bullets */
+  font-size: 1rem;
+}
+
+.privacy-sublist {
+  list-style-type: circle; /* Changes sub-bullets to hollow circles */
+  padding-left: 25px;      /* Adds an additional 25px indentation */
+  margin-top: 8px;         /* Adds breathing room between the parent text and sub-list */
+  margin-bottom: 4px;
+}
+
+.privacy-sublist li {
+  margin-bottom: 6px;      /* Slightly tighter spacing for sub-items */
+  font-size: 0.95rem;      /* Optional: slightly smaller font for visual hierarchy */       /* Optional: slightly softer color */
+}
+
+.privacy-list strong {
+  color: #000000;       /* Makes the bold text stand out slightly more */
+}
