@@ -58,7 +58,7 @@ exports.handler = async function (event) {
       }
     );
 
-    const captureData = await captureResponse.json();
+    const captureData = await captureResponse.json(); //this is the order data
 
     if (!captureResponse.ok) {
       throw new Error(captureData.message || "PayPal capture failed");
@@ -68,7 +68,7 @@ exports.handler = async function (event) {
       throw new Error("Payment was not completed");
     }
 
-    // 2. CONSTRUCT EXACT PAYLOAD FORMAT FOR GOOGLE SCRIPT
+    // CONSTRUCT EXACT PAYLOAD FORMAT FOR GOOGLE SCRIPT
     // We add the order ID metadata back into the object, then serialize it 
     // exactly like event.body was sent in your working function.
     const combinedData = {
@@ -78,9 +78,9 @@ exports.handler = async function (event) {
     };
 
     const payloadBody = JSON.stringify(combinedData);
-    console.log("Forwarding body:", payloadBody); // Exactly like your original log
+    console.log("Forwarding body:", payloadBody); 
 
-    // 3. EXECUTE EXACT GOOGLE APPS SCRIPT SUBMISSION LOGIC
+    //  EXECUTE EXACT GOOGLE APPS SCRIPT SUBMISSION LOGIC
     const response = await fetch(GOOGLE_SCRIPT_URL, {
       method: "POST",
       headers: { "Content-Type": "text/plain" },
@@ -89,8 +89,8 @@ exports.handler = async function (event) {
     });
 
     const text = await response.text();
-    console.log("Google response status:", response.status); // Exactly like your original log
-    console.log("Google raw response:", text);               // Exactly like your original log
+    console.log("Google response status:", response.status); 
+    console.log("Google raw response:", text);             
 
     // Try to parse, but return the non-JSON error shape exactly if it fails
     let parsed;

@@ -67,23 +67,28 @@ function Register() {
 
     /**
      * handles the payment
+     * it only runs on teh fourth step and both creates and captures the order 
+     * The data is then sent to the google sheet back end
      */
     useEffect(() => {
+        //needs to be step 4
         if (step !== 4) return;
 
+        //
         const renderPayPal = () => {
             if (!window.paypal || !window.paypal.Buttons) return;
 
             const container = document.getElementById("paypal-container-W4SYP3NQH2LCQ");
-            if (container) container.innerHTML = "";
+            if (container) container.innerHTML = ""; //prevents duplicate containers
 
-            window.paypal.Buttons({
+            window.paypal.Buttons({ //grabs and creates a paypal button from the pay pal sdk
             style: {
                 layout: "vertical",
                 shape: "rect",
                 label: "pay",
             },
 
+            //sends the data over to the servless function create paypal order that generates a new order id and a price 
             createOrder: async () => {
                 const response = await fetch("/.netlify/functions/create-paypal-order", {
                 method: "POST",
@@ -95,7 +100,7 @@ function Register() {
                 }),
                 });
 
-                const order = await response.json();
+                const order = await response.json();//stores the order with an order ID
 
                 if (!response.ok) {
                 throw new Error(order.error || "Could not create PayPal order");
@@ -104,6 +109,7 @@ function Register() {
                 return order.id;
             },
 
+            //passes along teh generated orderID and all of the info of teh order
             onApprove: async (data) => {
                 try {
                 //sends the payment to the backend
@@ -163,6 +169,7 @@ function Register() {
                 }
             },
 
+            //incase anything happens, it will throw a simple error
             onError: (err) => {
                 console.error("PayPal error:", err);
                 alert("PayPal checkout failed.");

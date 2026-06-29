@@ -28,7 +28,7 @@ async function getAccessToken() {
   return data.access_token;
 }
 
-//creates a new payment dependning on the tournamen selected
+//creates a new payment order dependning on the tournamen selected
 exports.handler = async function (event) {
   if (event.httpMethod !== "POST") {
     return {
@@ -40,7 +40,7 @@ exports.handler = async function (event) {
   try {
     const { tournamentSelect } = JSON.parse(event.body);
 
-    const priceMap = {
+    const priceMap = {//maps the price depending on the tournament selected
       "Prep Cup (6/12-14)": "235.00",
       "Girls Harrow Invite (6/19-21)": "235.00",
       "Boys Harrow Invite (6/26-28)": "235.00",
