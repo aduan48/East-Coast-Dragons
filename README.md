@@ -22,12 +22,31 @@ Hosting & Backend Forms: Netlify, Google Scripts
 
 Version Control: Git & GitHub
 
+## Google Sheets & Apps Script Integration
+
+This project uses a Google Apps Script background service to handle custom tournament roster routing and data logging directly from the web frontend.
+
+###  System Overview
+* **Database/CRM:** Google Sheets
+* **Backend API Engine:** Google Apps Script Web App
+* **Live Code:** You can view the complete architecture script in the [google-scripts/ folder](./google-scripts/).
+
+###  Database Architecture (Google Sheets)
+Below is a look at how the incoming automated payload organizes tournament sign-ups in real-time:
+
+![Google Sheets Dashboard](./google-scripts/sheets-backend-demo.png)
+
+###  How It Works
+1. The Netlify serverless function processes a successful PayPal checkout event.
+2. A payload containing tournament selection and player details is sent via `POST` to the `GOOGLE_SCRIPT_URL`.
+3. The Apps Script dynamically parses the incoming JSON, checks for existing entries, appends a new row to the matching tournament sheet tab, and fires a confirmation response.
+
 ##  Getting Started
 
 Follow these instructions to get a copy of the project up and running on your local machine for development and testing purposes.
 
 Prerequisites
-Make sure you have Node.js and npm installed. You can check by running:
+Make sure you have Node.js and npm installed and the right .env file. You can check by running:
 
 Bash
 node -v
